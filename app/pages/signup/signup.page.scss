@@ -11,4 +11,10 @@ app-signup {
   .full-width {
     width: 100%;
   }
+
+  ion-input.input-normal {
+    height: 50px;
+    width: 100%;
+    color: red;
+  }
 }
