@@ -42,10 +42,10 @@
   <ion-slides #signupSlides (ionSlideDidChange)="onSlideDidChange()">
     <ion-slide>
       <div style="width: 100%" >
-        <form #phoneForm="ngForm" (onsubmit)="onSignupPhone()" novalidate>
+        <form #phoneForm="ngForm" novalidate>
           <ion-list>
             <ion-item>
-              <ion-input name="phone" type="number" placeholder="手机号" required pattern="^((16[0-9]|13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,3,5-9]))\d{8}$" [(ngModel)]="signup.phone" #phone="ngModel"></ion-input>
+              <ion-input name="phone" type="number" placeholder="手机号" required pattern="^((16[0-9]|13[0-9])|(17([0-9]))|(14[5|7])|(15([0-3]|[5-9]))|(18[0,3,5-9]))\d{8}$" [(ngModel)]="signup.phone" #phone="ngModel"></ion-input>
             </ion-item>
             <ion-text color="danger" text-left *ngIf="phone.touched || phoneError">
               <p [hidden]="!phone.errors?.required">请输入您的手机号</p>
@@ -114,7 +114,7 @@
           </ion-item>
           <ion-text color="danger" text-left *ngIf="confirmPassword.touched">
             <p [hidden]="!confirmPassword.errors?.required">请确认密码</p>
-            <p *ngIf="!passwd()">两次密码不一致，请重新输入</p>
+            <p *ngIf="!checkPasswd()">两次密码不一致，请重新输入</p>
           </ion-text>
         </ion-list>
         <div padding-horizontal>
@@ -127,10 +127,9 @@
     <ion-slide>
       <div padding-horizontal>
         <h1>注册成功</h1>
-        <ion-button expand="full" color="primary" (click)="getHome()">回到首页</ion-button>
+        <ion-button expand="full" color="primary" (click)="getLogin()">去登录</ion-button>
       </div>
     </ion-slide>
 
   </ion-slides>
-
 </ion-content>

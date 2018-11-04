@@ -23,6 +23,7 @@ export class AuthenticationCodeService {
     }
     return this.code;
   }
+
   // 验证用户输入的短信验证码是否一致，是否过期
   validate(value: string): boolean {
     console.log((this.code));

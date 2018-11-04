@@ -5,6 +5,8 @@ import {AuthenticationCodeService} from '../../services/authentication-code.serv
 import {Md5} from 'ts-md5/dist/md5';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {UserServiceService} from '../../services/user-service.service';
+import {Register} from '../../shared/register';
 
 @Component({
   selector: 'app-signup',
@@ -13,7 +15,6 @@ import {Router} from '@angular/router';
 })
 export class SignupPage implements OnInit {
   slideIndex = 0 ;
-  submited = false;
   msgSend = '发送验证码';   // 用户提示语
   isSend = false;  // 标识是否已发送
   seconds;  // 设置点击按钮时间间隔
@@ -34,20 +35,11 @@ export class SignupPage implements OnInit {
     code: ''
   };
 
-  user = {
-    phone: '',
-    email: '',
-    shopName: '',
-    password: '',
-    name: '',  // 用户基本信息中的姓名
-    created: '', // 注册时间
-    type: '',   // 登录状态，1-已登录，2-未登录
-  };
-
   constructor(private localStorageService: LocalStorageService ,
-              private AuthenticationCodeService: AuthenticationCodeService,
+              private authenticationCodeService: AuthenticationCodeService,
               private http: HttpClient,
-              private router: Router) {
+              private router: Router,
+              private userServer: UserServiceService) {
   }
 
   ngOnInit() {
@@ -60,7 +52,7 @@ export class SignupPage implements OnInit {
   }
 
   next() {
-    if (this.checkPhone()) {
+    if (this.checkPasswd()) {
       console.log(this.slideIndex);
       this.signupSlides.lockSwipeToNext(false);
       this.signupSlides.slideNext();
@@ -72,15 +64,10 @@ export class SignupPage implements OnInit {
     this.signupSlides.slidePrev();
   }
 
-  onSignupPhone() {
-    this.submited = true;
-  }
-
   /**
    * 验证手机号是否已注册
    */
   checkPhone() {
-    // console.log('checkphone');
     if (this.localStorageService.get(this.signup.phone, 'null') !== 'null') {
       this.phoneError = true;
       return false;
@@ -93,13 +80,15 @@ export class SignupPage implements OnInit {
    */
   onSendSMS() {
     this.seconds = 60;
-    const tmp_code = this.AuthenticationCodeService.createCode(4);   // 生成的验证码，需要发送给用户
-    // console.log(Md5.hashStr(this.AuthenticationCodeService.code));
+    const tmp_code = this.authenticationCodeService.createCode(4);   // 生成的验证码，需要发送给用户
     // const sbody = JSON.stringify({ 'param': tmp_code, 'phone': this.signup.phone, 'sign': '1', 'skin': 18});
-    const httpOptions = {headers: new HttpHeaders({'content-Type': 'application/json', 'Authorization': 'APPCODE '})};
+    const httpOptions = {headers: new HttpHeaders({
+      'content-Type': 'application/json',
+      'Authorization': 'APPCODE 0fa8ff2122c448689b8cc35542c70546'})
+    };
     // this.http.post(this.path, sbody, httpOptions)
     this.path = this.path + '?param=' + tmp_code + '&phone=' + this.signup.phone + '&sign=1&skin=18';
-    // 此接口只能用get请求,暂且注释
+    // 此接口最好用get请求
     // this.http.get(this.path, httpOptions).subscribe(data => {
     //   console.log(data);
     //   console.log('验证码已发送');
@@ -124,8 +113,9 @@ export class SignupPage implements OnInit {
    * 点击下一步按钮，验证 用户输入是否正确，若错误，提示；正确，进入下一步
    */
   onValidateCode() {
-    if (this.AuthenticationCodeService.validate( Md5.hashStr(this.signup.code.toString()).toString())) {
+    if (this.authenticationCodeService.validate( Md5.hashStr(this.signup.code.toString()).toString())) {
       this.next();
+      console.log(this.signup.code.toString());
       this.isSend = false;  // 使下一步按钮可用
       this.msgSend = '发送验证码';
       clearInterval(this.clock);
@@ -138,7 +128,7 @@ export class SignupPage implements OnInit {
   /**
    * 验证两次输入的密码是否一致
    */
-  passwd() {
+  checkPasswd() {
     if (this.signup.confirmPassword.toString() === this.signup.password.toString()) {
       return true;
     } else {
@@ -148,30 +138,30 @@ export class SignupPage implements OnInit {
   }
 
   saveUserData() {
-    if (!this.passwd()) {  // 再次验证
+    if (!this.checkPasswd()) {  // 再次验证
       return;
     }
-    const now = new Date();
-    const month = now.getUTCMonth()+1;
-    const time = now.getFullYear() + '-' + month + '-' + now.getDate() + ' ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+    let now = new Date();
+    let month = now.getUTCMonth() + 1;
+    let time = now.getFullYear() + '-' + month + '-' + now.getDate() + ' '
+      + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();  // 当前时间
+    let userData = new Register();
+    userData.password = this.signup.password;
+    userData.created = new  Date().getTime().toString();   // 记录时间戳
+    userData.email = this.signup.email;
+    userData.phone = this.signup.phone;
+    userData.shopName = this.signup.shopName;
+    let signupRes = this.userServer.signup(userData);
+    if (signupRes.success === true) {
+      this.next();
+    }
 
-    // 保存用户信息，将状态记为已登录
-    this.user.email = this.signup.email;
-    this.user.password = this.signup.password;
-    this.user.phone = this.signup.phone;
-    this.user.shopName = this.signup.shopName;
-    this.user.created = time;
-    this.user.type = '1';
-    this.localStorageService.set(this.user.phone, this.user);
-    this.localStorageService.set('currentUser', this.user.phone);  // 记录当前登录用户
-    this.next();
   }
 
   /**
-   *  跳转到首页
+   *  跳转到登录页
    */
-  getHome() {
-    console.log('跳转首页');
-    this.router.navigateByUrl('\home');
+  getLogin() {
+    this.router.navigateByUrl('\login');
   }
 }

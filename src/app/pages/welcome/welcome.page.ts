@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Slides} from '@ionic/angular';
 import {LocalStorageService} from '../../services/local-storage.service';
 import {Router} from '@angular/router';
+import {UserServiceService} from '../../services/user-service.service';
 @Component({
     selector: 'app-welcome',
     templateUrl: './welcome.page.html',
@@ -11,7 +12,9 @@ import {Router} from '@angular/router';
 export class WelcomePage implements OnInit {
     showSkip = true;
     @ViewChild('slides') slides: Slides;
-    constructor(private localStorageService: LocalStorageService , private router: Router) { }
+    constructor(private localStorageService: LocalStorageService ,
+                private router: Router,
+                private userServer: UserServiceService) { }
     ngOnInit() {
     }
     onSlideWillChange(event) {
@@ -21,7 +24,9 @@ export class WelcomePage implements OnInit {
     }
 
   startApplication() {
-    // 参考之前的任务通过代码实现页面跳转，登录任务中再完善逻辑
+    // 验证当前登录用户是否过期，若未过期，直接跳到首页，若已过期，跳到登录页
+    // 调用userServer中的判断是否登录方法
+    this.userServer.isLogin();
 
   }
 

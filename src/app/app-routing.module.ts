@@ -16,7 +16,9 @@ const routes: Routes = [
     loadChildren: './list/list.module#ListPageModule'
   },
   { path: 'welcome', loadChildren: './pages/welcome/welcome.module#WelcomePageModule' },
-  { path: 'signup', loadChildren: './pages/signup/signup.module#SignupPageModule' }
+  { path: 'signup', loadChildren: './pages/signup/signup.module#SignupPageModule' },
+  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
+  { path: 'forgotPassword', loadChildren: './pages/forgot-password/forgot-password.module#ForgotPasswordPageModule' }
 ];
 
 @NgModule({
