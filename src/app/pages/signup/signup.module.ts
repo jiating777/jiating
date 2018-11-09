@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { SignupPage } from './signup.page';
 import {CopyrightComponent} from '../../components/copyright/copyright.component';
+import {CzbModule} from '../../components/copyright/czb.module';
 
 const routes: Routes = [
   {
@@ -20,7 +21,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    CzbModule,
   ],
   declarations: [SignupPage]
 })

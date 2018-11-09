@@ -40,6 +40,7 @@ export class SignupPage implements OnInit {
               private http: HttpClient,
               private router: Router,
               private userServer: UserServiceService) {
+    this.userServer.isLogin();
   }
 
   ngOnInit() {
