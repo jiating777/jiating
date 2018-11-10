@@ -9,13 +9,16 @@ import {Md5} from 'ts-md5';
   providedIn: 'root'
 })
 export class UserServiceService {
+  username: string;
 
   constructor(private localStorageService: LocalStorageService,
-              private router: Router) { }
+              private router: Router) {
+    this.username = this.localStorageService.get('currentUser', 'null');
+  }
 
   // 判断当前是否有用户已登录或登录是否过期,未登录跳转到登录界面，已登录，跳转到主页
   isLogin() {
-    const currentUser: any = this.localStorageService.get('currentUser', 'null');  // 当前登录用户
+    const currentUser: any = this.username;  // 当前登录用户
     console.log(currentUser);
     let now = new Date().getTime();
     if (currentUser === 'null') {
@@ -30,6 +33,11 @@ export class UserServiceService {
       }
     }
   }
+
+  // 获取当前登录用户基本信息
+  getUser() {
+    return this.localStorageService.get(this.username, 'null');
+  }
   // 注册逻辑
   sigup1(register: Register): Promise<AjaxResult> {  // 旧版本用法
     return new Promise(((resolve, reject) => {
@@ -39,13 +47,17 @@ export class UserServiceService {
 
   signup(register: Register): AjaxResult {
     let user = {
-       phone: register.phone,
-       email: register.email,
-       shopName: register.shopName,
-       password: Md5.hashStr(register.password),
-       created: register.created, // 注册时间
-       type: '2',   // 登录状态，1-已登录，2-未登录，初始化为未登录，注册成功后跳转到登录
-       accounts: []
+      phone: register.phone,
+      email: register.email,
+      shopName: register.shopName,
+      password: Md5.hashStr(register.password),
+      alias: register.alias,
+      ownerName: register.ownerName,
+      telephone: register.telephone,
+      created: register.created, // 注册时间
+      shopType: register.shopType,
+      type: '2',   // 登录状态，1-已登录，2-未登录，初始化为未登录，注册成功后跳转到登录
+      accounts: []
     };
     user.accounts.push({phone: user.phone, passwordToken: Md5.hashStr(register.password), type: 'phone'});
     user.accounts.push({email: user.email, passwordToken: Md5.hashStr(register.password), type: 'email'});
@@ -115,5 +127,33 @@ export class UserServiceService {
       result.error = {message: '密码不正确', details: '密码不正确'};
     }
     return result;
+  }
+
+  // 修改当前登录用户某一项属性的值
+  modify(key: string, value: string) {
+    let userConfig = this.localStorageService.get(this.username, 'null');
+    switch (key) {
+      case 'shopName': {
+        userConfig.shopName = value;
+        break;
+      } case 'alias': {
+        userConfig.alias = value;
+        break;
+      } case 'ownerName': {
+        userConfig.ownerName = value;
+        break;
+      } case 'telephone': {
+        userConfig.telephone = value;
+        break;
+      }
+    }
+    this.localStorageService.set(userConfig.phone, userConfig);
+    this.localStorageService.set(userConfig.email, userConfig);
+  }
+
+  // 用户退出操作
+  logOut() {
+    this.localStorageService.set('currentUser', 'null');
+    this.router.navigateByUrl('\login')
   }
 }
