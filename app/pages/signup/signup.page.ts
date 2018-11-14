@@ -99,7 +99,7 @@ export class SignupPage implements OnInit {
     const httpOptions = {headers: new HttpHeaders({'content-Type': 'application/json', 'Authorization': 'APPCODE '})};
     // this.http.post(this.path, sbody, httpOptions)
     this.path = this.path + '?param=' + tmp_code + '&phone=' + this.signup.phone + '&sign=1&skin=18';
-    // 此接口只能用get请求,暂且注释
+    // 此接口只能用get请求,调试暂且注释
     // this.http.get(this.path, httpOptions).subscribe(data => {
     //   console.log(data);
     //   console.log('验证码已发送');
