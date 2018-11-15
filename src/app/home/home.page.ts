@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {UserServiceService} from '../services/user-service.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,8 +9,10 @@ import {UserServiceService} from '../services/user-service.service';
 })
 export class HomePage {
   user: any;
-  constructor(private userServer: UserServiceService) {
-    this.userServer.isLogin();
+  constructor(private userServer: UserServiceService, private  router: Router) {
+    if (!this.userServer.isLogin()) {
+      this.router.navigateByUrl('\login');
+    }
   }
   public sales = [
     {

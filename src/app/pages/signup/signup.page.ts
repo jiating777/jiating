@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Slides} from '@ionic/angular';
+import {MenuController, Slides} from '@ionic/angular';
 import {LocalStorageService} from '../../services/local-storage.service';
 import {AuthenticationCodeService} from '../../services/authentication-code.service';
 import {Md5} from 'ts-md5/dist/md5';
@@ -39,12 +39,22 @@ export class SignupPage implements OnInit {
               private authenticationCodeService: AuthenticationCodeService,
               private http: HttpClient,
               private router: Router,
-              private userServer: UserServiceService) {
-    this.userServer.isLogin();
+              private userServer: UserServiceService,
+              private menuController: MenuController) {
+    if (this.userServer.isLogin()) {
+      this.router.navigateByUrl('\home');
+    }
   }
 
   ngOnInit() {
     this.signupSlides.lockSwipeToNext(true);
+  }
+  ionViewWillEnter() {
+    this.menuController.enable(false);
+  }
+
+  ionViewDidLeave() {
+    this.menuController.enable(true);
   }
 
   async onSlideDidChange(event) {

@@ -17,19 +17,22 @@ export class UserServiceService {
   }
 
   // 判断当前是否有用户已登录或登录是否过期,未登录跳转到登录界面，已登录，跳转到主页
-  isLogin() {
+  isLogin(): boolean {
     const currentUser: any = this.username;  // 当前登录用户
     console.log(currentUser);
     let now = new Date().getTime();
     if (currentUser === 'null') {
-      this.router.navigateByUrl('\login');
+      // this.router.navigateByUrl('\login');
+      return false;
     } else {
       let userConfig = this.localStorageService.get(currentUser, 'null');
       console.log((now / 1000 - userConfig.loginTime / 1000) / 86400);
       if ((now / 1000 - userConfig.loginTime / 1000) / 86400 >= 5) {
-        this.router.navigateByUrl('\login');
+        // this.router.navigateByUrl('\login');
+        return false;
       } else {
-        this.router.navigateByUrl('\home');
+        // this.router.navigateByUrl('\home');
+        return true;
       }
     }
   }
@@ -132,21 +135,22 @@ export class UserServiceService {
   // 修改当前登录用户某一项属性的值
   modify(key: string, value: string) {
     let userConfig = this.localStorageService.get(this.username, 'null');
-    switch (key) {
-      case 'shopName': {
-        userConfig.shopName = value;
-        break;
-      } case 'alias': {
-        userConfig.alias = value;
-        break;
-      } case 'ownerName': {
-        userConfig.ownerName = value;
-        break;
-      } case 'telephone': {
-        userConfig.telephone = value;
-        break;
-      }
-    }
+    userConfig[key] = value;
+    // switch (key) {
+    //   case 'shopName': {
+    //     userConfig.shopName = value;
+    //     break;
+    //   } case 'alias': {
+    //     userConfig.alias = value;
+    //     break;
+    //   } case 'ownerName': {
+    //     userConfig.ownerName = value;
+    //     break;
+    //   } case 'telephone': {
+    //     userConfig.telephone = value;
+    //     break;
+    //   }
+    // }
     this.localStorageService.set(userConfig.phone, userConfig);
     this.localStorageService.set(userConfig.email, userConfig);
   }
@@ -154,6 +158,6 @@ export class UserServiceService {
   // 用户退出操作
   logOut() {
     this.localStorageService.set('currentUser', 'null');
-    this.router.navigateByUrl('\login')
+    this.router.navigateByUrl('\login');
   }
 }

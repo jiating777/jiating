@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import {UserServiceService} from '../../services/user-service.service';
 import {MessageService} from '../../services/message.service';
 import {Router} from '@angular/router';
+import {MenuController} from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -13,11 +14,18 @@ export class LoginPage implements OnInit {
 
   constructor(private userServer: UserServiceService,
               private messageServer: MessageService,
-              private router: Router) {
-    this.userServer.isLogin();
+              private router: Router,
+              private menuController: MenuController) {
   }
 
   ngOnInit() {
+  }
+  ionViewWillEnter() {
+    this.menuController.enable(false);
+  }
+
+  ionViewDidLeave() {
+    this.menuController.enable(true);
   }
   async doLogin(form: NgForm) {
     console.log(form);

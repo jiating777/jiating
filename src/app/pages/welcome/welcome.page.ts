@@ -26,7 +26,11 @@ export class WelcomePage implements OnInit {
   startApplication() {
     // 验证当前登录用户是否过期，若未过期，直接跳到首页，若已过期，跳到登录页
     // 调用userServer中的判断是否登录方法
-    this.userServer.isLogin();
+    if (this.userServer.isLogin()) {
+      this.router.navigateByUrl('\home');
+    } else {
+      this.router.navigateByUrl('\login');
+    }
 
   }
 
