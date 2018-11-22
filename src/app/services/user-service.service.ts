@@ -136,21 +136,6 @@ export class UserServiceService {
   modify(key: string, value: string) {
     let userConfig = this.localStorageService.get(this.username, 'null');
     userConfig[key] = value;
-    // switch (key) {
-    //   case 'shopName': {
-    //     userConfig.shopName = value;
-    //     break;
-    //   } case 'alias': {
-    //     userConfig.alias = value;
-    //     break;
-    //   } case 'ownerName': {
-    //     userConfig.ownerName = value;
-    //     break;
-    //   } case 'telephone': {
-    //     userConfig.telephone = value;
-    //     break;
-    //   }
-    // }
     this.localStorageService.set(userConfig.phone, userConfig);
     this.localStorageService.set(userConfig.email, userConfig);
   }

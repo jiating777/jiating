@@ -44,7 +44,7 @@ export class WelcomePage implements OnInit {
             appConfig.hasRun = true;
             this.localStorageService.set('App', appConfig);
         } else {
-            // this.router.navigateByUrl('\home');
+            this.router.navigateByUrl('\home');
         }
     }
 }

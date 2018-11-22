@@ -24,7 +24,11 @@ const routes: Routes = [
   { path: 'edit-shop', loadChildren: './pages/edit-shop/edit-shop.module#EditShopPageModule' },
   { path: 'aboutus', loadChildren: './pages/aboutus/aboutus.module#AboutusPageModule' },
   { path: 'edit-shop1/:title/:property', loadChildren: './pages/edit-shop1/edit-shop1.module#EditShop1PageModule' },
-  { path: 'changePassword', loadChildren: './pages/change-password/change-password.module#ChangePasswordPageModule' }
+  { path: 'changePassword', loadChildren: './pages/change-password/change-password.module#ChangePasswordPageModule' },
+  { path: 'categoryList', loadChildren: './pages/category-list/category-list.module#CategoryListPageModule' },
+  { path: 'AddCategory/:id/:name', loadChildren: './pages/add-category/add-category.module#AddCategoryPageModule' },
+  { path: 'EditCategory/:id', loadChildren: './pages/edit-category/edit-category.module#EditCategoryPageModule' },
+  { path: 'EditCategoryName', loadChildren: './pages/edit-category-name/edit-category-name.module#EditCategoryNamePageModule' }
 ];
 
 @NgModule({
