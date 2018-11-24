@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import {LocalStorageService} from './local-storage.service';
 import {AjaxResult} from '../shared/ajax-result';
 import {CATEGORIES} from '../shared/mock.categories';
+import {Observable, Subject} from 'rxjs/index';
+import {ActiveCategory} from '../shared/active-category';
 import {Category} from '../shared/category';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
+  private categorySubject = new Subject<ActiveCategory>();
 
   constructor(private localStorage: LocalStorageService) { }
 
@@ -67,7 +70,7 @@ export class CategoryService {
     return true;
   }
 
-  insertSubCategory(sub: Category, id: number): boolean {
+  insertSubCategory(sub: any, id: number): boolean {
     let currentCategory = this.localStorage.get('category', 'null');
     console.log(id);
     let id_num: number = currentCategory[id - 1].children.length;
@@ -91,6 +94,19 @@ export class CategoryService {
   get(id: number) {
     const category = this.localStorage.get('category', 'null');
     return category[id - 1];
+  }
+
+  watchCateogry(): Observable<ActiveCategory> {
+    console.log('watchCateogry');
+    return this.categorySubject.asObservable();
+  }
+
+  selectCategory(category: any) {
+    const activeCategory = {
+      id: category.id,
+      name: category.name
+    }
+    this.categorySubject.next(activeCategory);
   }
 
 }

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {CategoryService} from '../../services/category.service';
 import {Category} from '../../shared/category';
-import {ActionSheetController} from '@ionic/angular';
+import {ActionSheetController, Events} from '@ionic/angular';
 import {Router} from '@angular/router';
 import {LocalStorageService} from '../../services/local-storage.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-category-list',
@@ -18,7 +19,9 @@ export class CategoryListPage implements OnInit {
   constructor(private categoryService: CategoryService,
               private actionSheetCtrl: ActionSheetController,
               private router: Router,
-              private localStorage: LocalStorageService) {
+              private localStorage: LocalStorageService,
+              private location: Location,
+              private events: Events) {
     this.categoryService.getAll().then((ajaxResult) => {
       this.categories = ajaxResult.result;
       const localCategory = this.localStorage.get('category', 'null');
@@ -71,8 +74,11 @@ export class CategoryListPage implements OnInit {
   }
 
   onSelectSubCategory(subCategory) {
+    this.events.publish('category:selected', subCategory);
+    console.log(subCategory);
     this.acvtiveSubCategory = subCategory;
     console.log(this.acvtiveSubCategory.id);
+    this.location.back();
   }
 
   getItemColor(id: number): string {
@@ -81,6 +87,11 @@ export class CategoryListPage implements OnInit {
     } else {
       return 'light';
     }
+  }
+
+  onSelect(categoty: Category) {
+    this.events.publish('category:selected', categoty);
+    this.location.back();
   }
 
 }

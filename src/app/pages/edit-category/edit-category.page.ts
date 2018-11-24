@@ -57,8 +57,9 @@ export class EditCategoryPage implements OnInit {
             console.log('Confirm Okay');
             for (let index in this.category.children) {
               if (this.category.children[index].id === subId) {
-                console.log('delete');
-                this.category.children.slice(index, 1);
+                const tmpIndex: number = + index;
+                console.log('delete' + tmpIndex);
+                this.category.children.slice(tmpIndex, 1);
                 console.log(this.category);
               }
             }

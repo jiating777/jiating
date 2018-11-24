@@ -65,6 +65,7 @@ export class AddCategoryPage implements OnInit {
     } else { // 为已有大分类新增小分类
       console.log(this.category);
       const res = await this.categoryService.insertSubCategory(this.category, this.activateRout.snapshot.params.id);
+      this.router.navigateByUrl('\categoryList');
     }
   }
 
