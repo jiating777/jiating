@@ -39,7 +39,7 @@ export class ChangePasswordPage implements OnInit {
     }
     this.userService.changePassword(this.change.password, username);
     this.messageServer.toastMessage('修改成功', '2');
-    this.router.navigateByUrl('\setting');
+    this.router.navigateByUrl('/setting');
   }
 
 }

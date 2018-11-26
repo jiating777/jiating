@@ -46,14 +46,14 @@ export class CategoryListPage implements OnInit {
         {
           text: '新增小分类',
           handler: () => {
-            this.router.navigateByUrl('\AddCategory/' + this.activeCategory.id + '/' + this.activeCategory.name);
+            this.router.navigateByUrl('/AddCategory/' + this.activeCategory.id + '/' + this.activeCategory.name);
             console.log('Destructive clicked');
           }
         },
         {
           text: '编辑分类',
           handler: () => {
-            this.router.navigateByUrl('\EditCategory/' + this.activeCategory.id);
+            this.router.navigateByUrl('/EditCategory/' + this.activeCategory.id);
             console.log('Archive clicked');
           }
         },

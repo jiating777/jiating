@@ -97,7 +97,7 @@ export class EditCategoryPage implements OnInit {
     let currentCategory = this.localStorage.get('category', 'null');
     currentCategory[this.category.id - 1] = this.category;
     this.localStorage.set('category', currentCategory);
-    this.router.navigateByUrl('\categoryList');
+    this.router.navigateByUrl('/categoryList');
   }
 
 }

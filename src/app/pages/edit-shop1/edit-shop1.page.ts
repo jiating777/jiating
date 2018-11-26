@@ -31,7 +31,7 @@ export class EditShop1Page implements OnInit {
     this.userService.modify(this.property, form.value.value);
     this.messageServer.alertMessage('提示', '修改成功', 1);
     this.cd.detectChanges();
-    this.router.navigateByUrl('\shop');
+    this.router.navigateByUrl('/shop');
   }
 
 }

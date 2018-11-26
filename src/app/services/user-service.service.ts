@@ -22,16 +22,16 @@ export class UserServiceService {
     console.log(currentUser);
     let now = new Date().getTime();
     if (currentUser === 'null') {
-      // this.router.navigateByUrl('\login');
+      // this.router.navigateByUrl('/login');
       return false;
     } else {
       let userConfig = this.localStorageService.get(currentUser, 'null');
       console.log((now / 1000 - userConfig.loginTime / 1000) / 86400);
       if ((now / 1000 - userConfig.loginTime / 1000) / 86400 >= 5) {
-        // this.router.navigateByUrl('\login');
+        // this.router.navigateByUrl('/login');
         return false;
       } else {
-        // this.router.navigateByUrl('\home');
+        // this.router.navigateByUrl('/home');
         return true;
       }
     }
@@ -143,6 +143,6 @@ export class UserServiceService {
   // 用户退出操作
   logOut() {
     this.localStorageService.set('currentUser', 'null');
-    this.router.navigateByUrl('\login');
+    this.router.navigateByUrl('/login');
   }
 }

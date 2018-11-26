@@ -10,7 +10,19 @@ export class ProductService {
 
   constructor(private localStorage: LocalStorageService) { }
 
-  insert(input: Product): Promise<AjaxResult> {
+  insert(data: Product): AjaxResult {
+    let product = this.localStorage.get('product', 'null');
+    if (product === 'null') {
+      let pp = [];
+      data.id = 1;
+      pp.push(data);
+      console.log(pp);
+      this.localStorage.set('product', pp);
+    } else {
+      data.id = this.autoIncrement(product);
+      product.push(data);
+      this.localStorage.set('product', product);
+    }
     return {
       targetUrl: '',
       result: '',
@@ -21,7 +33,7 @@ export class ProductService {
 
   }
 
-  autoIncrement(array: product[]): number {
+  autoIncrement(array: Product[]): number {  // 获得当前数据自增id
     if (array.length == 0) {
       return 1;
     } else {

@@ -42,7 +42,7 @@ export class SignupPage implements OnInit {
               private userServer: UserServiceService,
               private menuController: MenuController) {
     if (this.userServer.isLogin()) {
-      this.router.navigateByUrl('\home');
+      this.router.navigateByUrl('/home');
     }
   }
 
@@ -173,6 +173,6 @@ export class SignupPage implements OnInit {
    *  跳转到登录页
    */
   getLogin() {
-    this.router.navigateByUrl('\login');
+    this.router.navigateByUrl('/login');
   }
 }

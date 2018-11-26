@@ -11,7 +11,7 @@ export class HomePage {
   user: any;
   constructor(private userServer: UserServiceService, private  router: Router) {
     if (!this.userServer.isLogin()) {
-      this.router.navigateByUrl('\login');
+      this.router.navigateByUrl('/login');
     }
   }
   public sales = [

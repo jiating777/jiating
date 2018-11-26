@@ -39,7 +39,7 @@ export class LoginPage implements OnInit {
     let result = this.userServer.doLogin(form.value.username, form.value.password);
     if (result.success === true) {
       this.messageServer.toastMessage('登录成功', 3000);
-      this.router.navigateByUrl('\home');
+      this.router.navigateByUrl('/home');
     } else {
       this.messageServer.alertMessage('警告', result.error.message, 2);
     }

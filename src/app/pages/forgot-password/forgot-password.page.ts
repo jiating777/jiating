@@ -128,6 +128,6 @@ export class ForgotPasswordPage implements OnInit {
   changePawd() {
     this.userService.changePassword(this.forgot.password, this.forgot.username);
     this.messageServer.toastMessage('修改成功，请去登录', '2');
-    this.router.navigateByUrl('\login');
+    this.router.navigateByUrl('/login');
   }
 }

@@ -1,5 +1,5 @@
 export class Product {
-  id: string;
+  id: number;
   name: string;
   categoryId: number;
   categoryName: string;
@@ -10,4 +10,7 @@ export class Product {
   spec: string;  // 规格
   p_price: number;  // 进价
   stock: number; // 库存
+  note: string;  // 备注
+  supplyId: number; // 供应商ID
+  supplyName: string;  // 供应商名称
 }
