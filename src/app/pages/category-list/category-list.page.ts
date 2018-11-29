@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, NgZone, OnInit} from '@angular/core';
 import {CategoryService} from '../../services/category.service';
 import {Category} from '../../shared/category';
-import {ActionSheetController, Events} from '@ionic/angular';
+import {ActionSheetController, Content, Events} from '@ionic/angular';
 import {Router} from '@angular/router';
 import {LocalStorageService} from '../../services/local-storage.service';
 import {Location} from '@angular/common';
@@ -21,7 +21,10 @@ export class CategoryListPage implements OnInit {
               private router: Router,
               private localStorage: LocalStorageService,
               private location: Location,
-              private events: Events) {
+              private events: Events,
+              private ngZone: NgZone,
+              private change: ChangeDetectorRef) {
+    console.log('constructor');
     this.categoryService.getAll().then((ajaxResult) => {
       this.categories = ajaxResult.result;
       const localCategory = this.localStorage.get('category', 'null');
@@ -34,9 +37,23 @@ export class CategoryListPage implements OnInit {
         this.activeCategory = this.categories[0];
       }
     });
+    this.ngZone.run(() => {
+      console.log('run');
+      this.categories = this.localStorage.get('category', 'null');
+    });
   }
 
   ngOnInit() {
+  }
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter');
+    this.categories = this.localStorage.get('category', 'null');
+    this.change.detectChanges();
+    console.log(this.categories);
+    this.ngZone.run(() => {
+      console.log('run');
+      this.categories = this.localStorage.get('category', 'null');
+    });
   }
 
   async onPresentActionSheet() {
@@ -70,7 +87,12 @@ export class CategoryListPage implements OnInit {
   }
   onSelectCategory(category) {
     console.log(category);
-    this.activeCategory = this.categories[category.id - 1];
+    for (let index in this.categories) {
+      if (this.categories[index].id === category.id) {
+        this.activeCategory = this.categories[index];
+        break;
+      }
+    }
   }
 
   onSelectSubCategory(subCategory) {

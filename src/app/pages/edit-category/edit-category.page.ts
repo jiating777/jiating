@@ -14,6 +14,7 @@ import {LocalStorageService} from '../../services/local-storage.service';
 })
 export class EditCategoryPage implements OnInit {
   public category: Category;
+  public is_del_big = false;
 
   constructor(private modalController: ModalController,
               private alertController: AlertController,
@@ -22,10 +23,8 @@ export class EditCategoryPage implements OnInit {
               private localStorage: LocalStorageService,
               private router: Router) {
     const id = activateRout.snapshot.params.id;
-    this.categoryService.getAll().then((ajaxResult) => {
-      const categories = ajaxResult.result;
-      this.category = categories[id - 1];
-    });
+    this.category = this.categoryService.getOne(id);
+    console.log(this.category);
   }
 
   ngOnInit() {
@@ -55,14 +54,13 @@ export class EditCategoryPage implements OnInit {
           text: '确认',
           handler: () => {
             console.log('Confirm Okay');
-            for (let index in this.category.children) {
-              if (this.category.children[index].id === subId) {
-                const tmpIndex: number = + index;
-                console.log('delete' + tmpIndex);
-                this.category.children.slice(tmpIndex, 1);
-                console.log(this.category);
-              }
+            if (subId === undefined) {
+              console.log('undefined');
+              this.is_del_big = true;
+            } else {
+              this.category = this.categoryService.delete(subId, this.category, 2);
             }
+
           }
         }
       ]
@@ -73,6 +71,7 @@ export class EditCategoryPage implements OnInit {
 
   onDelete(item: ItemSliding, subId?: number) {
     item.close();
+    console.log(item);
     console.log('delete' + subId);
     this.presentAlertConfrim(subId);
   }
@@ -94,8 +93,29 @@ export class EditCategoryPage implements OnInit {
   }
 
   save() {
+    console.log(this.category);
     let currentCategory = this.localStorage.get('category', 'null');
-    currentCategory[this.category.id - 1] = this.category;
+    if (this.is_del_big) {
+      for (let index in currentCategory) {
+        if (currentCategory[index].id === this.category.id) {
+          console.log(index);
+          const part1 = currentCategory.slice(0, index);
+          const part2 = currentCategory.slice(index);
+          console.log(part1);
+          console.log(part2);
+          // part1.pop();
+          currentCategory = part1.concat(part2);
+          break;
+        }
+      }
+    } else {
+      for (let index2 in currentCategory) {
+        if (currentCategory[index2].id === this.category.id) {
+          currentCategory[index2] = this.category;
+          break;
+        }
+      }
+    }
     this.localStorage.set('category', currentCategory);
     this.router.navigateByUrl('/categoryList');
   }

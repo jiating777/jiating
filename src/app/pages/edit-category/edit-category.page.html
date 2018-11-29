@@ -1,8 +1,9 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>
-      修改分类
-    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回"></ion-back-button>
+    </ion-buttons>
+    <ion-title>修改分类</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,7 +20,7 @@
         <ion-item-option color="primary" (click)="onEditCategoryName(itemSliding)">
           <ion-icon name="create"></ion-icon>编辑
         </ion-item-option>
-        <ion-item-option color="danger" (click)="onDelet(itemSliding)" >
+        <ion-item-option color="danger" (click)="onDelete(itemSliding)" >
           <ion-icon name="trash"></ion-icon>删除
         </ion-item-option>
       </ion-item-options>

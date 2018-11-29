@@ -60,11 +60,12 @@ export class AddCategoryPage implements OnInit {
       if (!res.success) {
         this.messageService.alertMessage('警告', res.error.message, 1);
       } else {
+        this.messageService.alertMessage('成功', res.error.message, 1);
         this.router.navigateByUrl('/categoryList');
       }
     } else { // 为已有大分类新增小分类
       console.log(this.category);
-      const res = await this.categoryService.insertSubCategory(this.category, this.activateRout.snapshot.params.id);
+      const res = await this.categoryService.insertSubCategory(this.category.children, this.activateRout.snapshot.params.id);
       this.router.navigateByUrl('/categoryList');
     }
   }

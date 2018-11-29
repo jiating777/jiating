@@ -73,27 +73,47 @@ export class CategoryService {
   insertSubCategory(sub: any, id: number): boolean {
     let currentCategory = this.localStorage.get('category', 'null');
     console.log(id);
-    let id_num: number = currentCategory[id - 1].children.length;
-    // let id_num = 0;
+    let id_num;
+    let tmp_index;
+    // let id_num: number = currentCategory[id - 1].children.length;
+    for (let index in currentCategory) {
+      if (currentCategory[index].id === +id) {
+        tmp_index = +index;
+        if (currentCategory[tmp_index].children.length === 0) {
+          id_num = 0;
+        } else {
+          console.log(currentCategory[tmp_index].children.slice(currentCategory[tmp_index].children.length - 1));
+          id_num = currentCategory[tmp_index].children.slice(currentCategory[tmp_index].children.length - 1)[0].id;
+        }
+        break;
+      }
+    }
+    // console.log(id_num);
     console.log(sub);
-    for (let sub_index in sub.children) {
+    for (let sub_index in sub) {
       if (sub_index) {}
       let addCategory: Category = {
         id: ++id_num,
-        name: sub.children[sub_index].name,
+        name: sub[sub_index].name,
         children: [],
       };
-      currentCategory[id - 1].children.push(addCategory);
+      console.log(addCategory);
+      currentCategory[tmp_index].children.push(addCategory);
     }
-    console.log(currentCategory[id - 1]);
+    console.log(currentCategory[tmp_index]);
     this.localStorage.set('category', currentCategory);
     return true;
   }
 
-  // 获取单个分类
-  get(id: number) {
+  // 获取单个大分类
+  getOne(id: number) {
     const category = this.localStorage.get('category', 'null');
-    return category[id - 1];
+    for (let index in category) {
+      if (category[index].id === +id) {
+        return category[index];
+      }
+    }
+    return 'null';
   }
 
   watchCateogry(): Observable<ActiveCategory> {
@@ -107,6 +127,28 @@ export class CategoryService {
       name: category.name
     }
     this.categorySubject.next(activeCategory);
+  }
+
+  delete (subId: number, category, type = 1): Category {  // 删除分类，type=1，删除整个大分类，type=2，删除传来的大分类下的小分类
+    console.log(category.children);
+    if (type === 1) {
+      return category;
+    } else {
+      for (let index in category.children) {
+        if (category.children[index].id === subId) {
+          const tmpIndex: number = + index;
+          console.log('delete' + tmpIndex);
+          const part1 = category.children.slice(0, tmpIndex + 1);
+          const part2 = category.children.slice(tmpIndex + 1);
+          part1.pop();
+          category.children = part1.concat(part2);
+          console.log(part1); console.log(part2);
+          console.log(category);
+          break;
+        }
+      }
+      return category;
+    }
   }
 
 }
