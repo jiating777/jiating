@@ -29,7 +29,8 @@ const routes: Routes = [
   { path: 'AddCategory/:id/:name', loadChildren: './pages/add-category/add-category.module#AddCategoryPageModule' },
   { path: 'EditCategory/:id', loadChildren: './pages/edit-category/edit-category.module#EditCategoryPageModule' },
   { path: 'EditCategoryName', loadChildren: './pages/edit-category-name/edit-category-name.module#EditCategoryNamePageModule' },
-  { path: 'addProduct', loadChildren: './pages/add-product/add-product.module#AddProductPageModule' }
+  { path: 'addProduct', loadChildren: './pages/add-product/add-product.module#AddProductPageModule' },
+  { path: 'productList', loadChildren: './pages/product-list/product-list.module#ProductListPageModule' }
 ];
 
 @NgModule({

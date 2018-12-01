@@ -158,7 +158,7 @@ export class AddProductPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscruption.unsubscribe();
+    // this.subscruption.unsubscribe();
   }
 
   onScan() {
@@ -176,7 +176,7 @@ export class AddProductPage implements OnInit, OnDestroy {
       this.categoryName = '默认类别';
       this.supplyName = '选择供应商';
     } else {
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/productList');
     }
   }
 
