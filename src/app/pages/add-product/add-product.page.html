@@ -10,7 +10,7 @@
 <ion-content no-padding color="light">
   <ion-list margin-top>
       <ion-item>
-      <ion-thumbnail slot="start">
+      <ion-thumbnail slot="start" (click)="onPresentActionSheet()">
         <img src="/assets/img/supplier_icon.png">
       </ion-thumbnail>
       <ion-note>上传图片</ion-note>
@@ -18,7 +18,7 @@
     <ion-item>
       <ion-label position="fixed">条码<ion-text color="danger">*</ion-text></ion-label>
       <ion-input name="barcode" type="text" required [(ngModel)]="product.barcode" #barcode="ngModel" placeholder="输入条形码" ></ion-input>
-      <ion-button fill="clear" color="syzj"><ion-icon name="qr-scanner" color="primary"></ion-icon></ion-button>
+      <ion-button fill="clear" color="syzj" (click)="onScan()"><ion-icon name="qr-scanner" color="primary"></ion-icon></ion-button>
     </ion-item>
     <ion-item>
       <ion-label position="fixed">名称<ion-text color="danger">*</ion-text></ion-label>

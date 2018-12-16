@@ -18,7 +18,7 @@ export class EditShop1Page implements OnInit {
               private userService: UserServiceService,
               private router: Router,
               private messageServer: MessageService,
-              private cd: ChangeDetectorRef) {
+              private cd: ChangeDetectorRef,) {
     this.title = activatedRoute.snapshot.params.title;
     this.property = activatedRoute.snapshot.params.property;
     console.log('修改' + this.title);

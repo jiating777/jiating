@@ -10,6 +10,9 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {LocalStorageService} from './services/local-storage.service';
 import {HttpClientModule} from '@angular/common/http';
+import { Camera } from '@ionic-native/camera/ngx';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
 
 @NgModule({
@@ -26,6 +29,9 @@ import {HttpClientModule} from '@angular/common/http';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     LocalStorageService,
+    Camera,
+    BarcodeScanner,
+    ImagePicker
   ],
   bootstrap: [AppComponent]
 })
