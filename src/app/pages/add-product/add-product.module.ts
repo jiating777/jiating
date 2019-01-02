@@ -23,11 +23,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [
-    AddProductPage,
-    CategoryListPage
-  ],
-  entryComponents: [
-    CategoryListPage
+    AddProductPage
   ]
 })
 export class AddProductPageModule {}

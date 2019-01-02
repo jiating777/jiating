@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {Subscribable, Subscription} from 'rxjs/index';
 import {ActionSheetController, AlertController, Events, ModalController} from '@ionic/angular';
 import {CategoryService} from '../../services/category.service';
@@ -12,14 +12,13 @@ import {MessageService} from '../../services/message.service';
 import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker/ngx';
-import { CategoryListPage} from '../category-list/category-list.page';
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.page.html',
   styleUrls: ['./add-product.page.scss'],
 })
-export class AddProductPage implements OnInit, OnDestroy {
+export class AddProductPage implements OnInit{
   categoryName = '默认分类';
   supplyName = '选择供应商';
   subscruption: Subscription;
@@ -37,16 +36,21 @@ export class AddProductPage implements OnInit, OnDestroy {
               private camera: Camera,
               private imagePicker: ImagePicker,
               private actionSheetCtrl: ActionSheetController,
-              private modalController: ModalController
+              private modalController: ModalController,
+              private ngZone: NgZone
   ) {
     this.initProduct();
-    this.events.subscribe('category:selected', (data) => {
+    console.log('constructor-AddProductPage');
+    events.subscribe('category:selected', (data) => {
       console.log(data);
-      this.product.categoryId = data.id;
-      this.product.categoryName = data.name;
-      this.categoryName = data.name;
-      this.product.category = data;
-      console.log(this.product);
+      this.ngZone.run(() => {
+        console.log('run111');
+        this.product.categoryId = data.id;
+        this.product.categoryName = data.name;
+        this.categoryName = data.name;
+        this.product.category = data;
+        console.log(this.product);
+      });
     });
     // this.subscruption = this.categoryService.watchCateogry().subscribe(
     //   (data) => {
@@ -63,6 +67,7 @@ export class AddProductPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log('ngOnInit');
   }
 
   private initProduct() {
@@ -165,11 +170,7 @@ export class AddProductPage implements OnInit, OnDestroy {
   }
 
   ionViewLeave() {
-    this.events.unsubscribe('category:selected');
-  }
-
-  ngOnDestroy() {
-    // this.subscruption.unsubscribe();
+    // this.events.unsubscribe('category:selected');
   }
 
   onScan() {
@@ -194,7 +195,7 @@ export class AddProductPage implements OnInit, OnDestroy {
           }
         },
         {
-          text: '从相册选择',
+          text: '从相册选择,打开闪退',
           handler: () => {
             this.selectPicture();
           }
@@ -249,18 +250,18 @@ export class AddProductPage implements OnInit, OnDestroy {
 
   onSave(is_continue: boolean = false) {
     console.log(this.product);
-    const res = this.productService.insert(this.product);
-    if (res.success === false) {
-      this.messageService.alertMessage('警告', res.error.message, 1);
-      return;
-    }
-    if (is_continue) {
-      this.initProduct();
-      this.categoryName = '默认分类';
-      this.supplyName = '选择供应商';
-    } else {
-      this.router.navigateByUrl('/productList');
-    }
+    // const res = this.productService.insert(this.product);
+    // if (res.success === false) {
+    //   this.messageService.alertMessage('警告', res.error.message, 1);
+    //   return;
+    // }
+    // if (is_continue) {
+    //   this.initProduct();
+    //   this.categoryName = '默认分类';
+    //   this.supplyName = '选择供应商';
+    // } else {
+    //   this.router.navigateByUrl('/productList');
+    // }
   }
 
 }

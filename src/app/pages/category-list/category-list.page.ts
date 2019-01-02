@@ -24,7 +24,7 @@ export class CategoryListPage implements OnInit {
               private events: Events,
               private ngZone: NgZone,
               private change: ChangeDetectorRef) {
-    console.log('constructor');
+    console.log('constructor-CategoryList');
     this.categoryService.getAll().then((ajaxResult) => {
       this.categories = ajaxResult.result;
       const localCategory = this.localStorage.get('category', 'null');
@@ -83,7 +83,7 @@ export class CategoryListPage implements OnInit {
         }
       ]
     });
-    actionSheet.present();
+    await actionSheet.present();
   }
   onSelectCategory(category) {
     console.log(category);
@@ -101,6 +101,7 @@ export class CategoryListPage implements OnInit {
     this.acvtiveSubCategory = subCategory;
     console.log(this.acvtiveSubCategory.id);
     this.location.back();
+    // this.location.forward();
   }
 
   getItemColor(id: number): string {
@@ -111,9 +112,5 @@ export class CategoryListPage implements OnInit {
     }
   }
 
-  onSelect(categoty: Category) {
-    this.events.publish('category:selected', categoty);
-    this.location.back();
-  }
 
 }
