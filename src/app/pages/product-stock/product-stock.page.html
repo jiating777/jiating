@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="返回"></ion-back-button>
+    </ion-buttons>
+    <ion-title>出/入库管理</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-tabs selectedTab="in">
+  <ion-tab tab="in">
+    <form novalidate #stockForm="ngForm" (ngSubmit)="onSave(stockForm, 1)">
+      <ion-list margin-top>
+        <ion-item>
+          <ion-label position="fixed">入库数量<ion-text color="danger">*</ion-text></ion-label>
+          <ion-input name="add_num" type="number" [(ngModel)]="add_num" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-note slot="end">当前库存：{{product.stock}}件</ion-note>
+        </ion-item>
+      </ion-list>
+      <div padding-horizontal>
+        <ion-button expand="full" type="submit" color="primary" [disabled]="stockForm.invalid">确定</ion-button>
+      </div>
+    </form>
+  </ion-tab>
+  <ion-tab  tab="out">
+    <form novalidate #stockForm2="ngForm" (ngSubmit)="onSave(stockForm2, 2)">
+      <ion-list margin-top>
+        <ion-item>
+          <ion-label position="fixed">出库数量<ion-text color="danger">*</ion-text></ion-label>
+          <ion-input name="pluse_num" type="number" required  [(ngModel)]="pluse_num"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-note slot="end">当前库存：{{product.stock}}件</ion-note>
+        </ion-item>
+      </ion-list>
+      <div padding-horizontal>
+        <ion-button expand="full" type="submit" color="primary" [disabled]="stockForm2.invalid">确定</ion-button>
+      </div>
+    </form>
+  </ion-tab>
+
+  <ion-tab-bar slot="top" color="primary" style="margin-top: 20%;" selectedTab="in" (ionTabBarChanged) = "change($event)">
+
+    <ion-tab-button tab="in" icon-on="bar-home-on" icon-off="bar-home-off">
+      <ion-label>入库</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="out" icon-on="bar-home-on" icon-off="bar-home-off">
+      <ion-label>出库</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+</ion-tabs>

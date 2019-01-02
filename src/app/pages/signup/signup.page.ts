@@ -7,6 +7,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {UserServiceService} from '../../services/user-service.service';
 import {Register} from '../../shared/register';
+import {MessageService} from '../../services/message.service';
 
 @Component({
   selector: 'app-signup',
@@ -40,7 +41,8 @@ export class SignupPage implements OnInit {
               private http: HttpClient,
               private router: Router,
               private userServer: UserServiceService,
-              private menuController: MenuController) {
+              private menuController: MenuController,
+              private messageService: MessageService) {
     if (this.userServer.isLogin()) {
       this.router.navigateByUrl('/home');
     }
@@ -105,6 +107,7 @@ export class SignupPage implements OnInit {
     //   console.log('验证码已发送');
     // });
     console.log(tmp_code);
+    this.messageService.alertMessage('验证码', tmp_code, 2);
     this.isSend = true;  // 标识验证码已发送
     this.msgSend = this.seconds + '秒后可重新获取';
 

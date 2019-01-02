@@ -30,10 +30,11 @@
 
 <ion-content no-padding>
   <!--<div *ngIf="product.length === 0">-->
-    <!--<img src="assets/img/default-thumbnail.jpg" alt="">-->
+    <!--<img src="/assets/img/commodity_no.png" alt="">-->
   <!--</div>-->
   <ion-list>
-    <ion-item lines="full" *ngFor="let p of product">
+    <ion-item lines="full" *ngFor="let p of product" [routerLink]="['/productDetail', p.id]">
+      <ion-avatar slot="start"><img src="/assets/img/c_goodspicture.png" alt=""></ion-avatar>
       <ion-label>
         <ion-text><h2>{{p.name}}</h2></ion-text>
         <ion-text color="shzj"><p>{{p.price}}</p></ion-text>

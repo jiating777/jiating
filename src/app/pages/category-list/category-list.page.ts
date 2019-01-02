@@ -83,7 +83,7 @@ export class CategoryListPage implements OnInit {
         }
       ]
     });
-    await actionSheet.present();
+    actionSheet.present();
   }
   onSelectCategory(category) {
     console.log(category);

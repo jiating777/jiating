@@ -1,0 +1,28 @@
+<div no-padding class="f" style="height: 30%">
+  <div padding class="foot" style="position: fixed;bottom: 0;background-color: #f0f0f0;">
+    <ion-grid>
+      <ion-row>
+        <ion-col text-center (click)="dismiss()">
+          <img src="assets/img/sales_share_weixn.png">
+          <p>好友</p>
+        </ion-col>
+        <ion-col text-center (click)="dismiss()">
+          <img src="assets/img/sales_share_weixinfriends.png">
+          <p>朋友圈</p>
+        </ion-col>
+        <ion-col text-center (click)="dismiss()">
+          <img src="assets/img/sales_share_message.png">
+          <p>短信</p>
+        </ion-col>
+        <ion-col text-center (click)="dismiss()">
+          <img src="assets/img/sales_share_qq.png">
+          <p>QQ</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-item color="primary" lines="none" (click)="dismiss(false)" style="text-align: center">
+      取消
+    </ion-item>
+
+  </div>
+</div>

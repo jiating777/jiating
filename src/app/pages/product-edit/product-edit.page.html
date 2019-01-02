@@ -9,12 +9,6 @@
 
 <ion-content no-padding color="light">
   <ion-list margin-top>
-      <ion-item>
-      <ion-thumbnail slot="start" (click)="onPresentActionSheet()">
-        <img src="/assets/img/supplier_icon.png">
-      </ion-thumbnail>
-      <ion-note>上传图片</ion-note>
-    </ion-item>
     <ion-item>
       <ion-label position="fixed">条码<ion-text color="danger">*</ion-text></ion-label>
       <ion-input name="barcode" type="text" required [(ngModel)]="product.barcode" #barcode="ngModel" placeholder="输入条形码" ></ion-input>
@@ -23,10 +17,6 @@
     <ion-item>
       <ion-label position="fixed">名称<ion-text color="danger">*</ion-text></ion-label>
       <ion-input name="name" type="text" required [(ngModel)]="product.name" #name="ngModel" placeholder="" ></ion-input>
-    </ion-item>
-    <ion-item detail routerLink="/categoryList">
-      <ion-label position="fixed" slot="start">分类<ion-text color="danger">*</ion-text></ion-label>
-      <ion-label>{{categoryName}}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label position="fixed">售价<ion-text color="danger">*</ion-text></ion-label>
@@ -48,10 +38,6 @@
       <ion-label position="fixed">备注</ion-label>
       <ion-input name="note" type="text" required [(ngModel)]="product.note" #note="ngModel"  placeholder="请输入商品备注"></ion-input>
     </ion-item>
-    <ion-item detail>
-      <ion-label position="fixed">供应商</ion-label>
-      <ion-label name=""  type="text" (click)="presentAlertPrompt()">{{supplyName}}</ion-label>
-    </ion-item>
   </ion-list>
 
 </ion-content>
@@ -59,11 +45,8 @@
 <ion-footer no-padding>
   <ion-toolbar color="primary">
     <ion-item color="primary" lines="none">
-      <ion-button expand="full" fill="clear" size="default" color="light" (click)="onSave(false)" style="width: 50%;">
+      <ion-button expand="full" fill="clear" size="default" color="light" (click)="onSave()" style="width: 100%;">
         保存
-      </ion-button>
-      <ion-button expand="full" fill="clear" size="default" color="light" (click)="onSave(true)" style="width: 50%;">
-        继续添加
       </ion-button>
     </ion-item>
   </ion-toolbar>

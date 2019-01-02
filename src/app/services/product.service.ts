@@ -37,7 +37,7 @@ export class ProductService {
     if (array.length == 0) {
       return 1;
     } else {
-      return array.length + 1;
+      return array.slice(array.length - 1)[0].id + 1;
     }
   }
 
@@ -134,6 +134,41 @@ export class ProductService {
       error: null,
       unAuthorizedRequest: false
     };
+  }
+
+  // 根据商品id删除单个商品
+  detele(id: number) {
+    console.log('delete' + id);
+    let products = this.localStorage.get('product', null);
+    for (let index in products) {
+      if ( id == products[index].id) {
+        const tmpIndex: number = + index;
+        const part1 = products.slice(0, tmpIndex + 1);
+        const part2 = products.slice(tmpIndex + 1);
+        part1.pop();
+        products = part1.concat(part2);
+        console.log(products);
+        this.localStorage.set('product', products);
+        break;
+    }
+    }
+  }
+  // 根据id更新单个商品
+  update(id: number, product: any) {
+    let products = this.localStorage.get('product', null);
+    for (let index in products) {
+      if ( id == products[index].id) {
+        products[index].name = product.name;
+        products[index].barcode = product.barcode;
+        products[index].price = product.price;
+        products[index].p_price = product.p_price;
+        products[index].stock = product.stock;
+        products[index].spec = product.spec;
+        products[index].note = product.note;
+        this.localStorage.set('product', products);
+        break;
+      }
+    }
   }
 
 

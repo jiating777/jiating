@@ -29,7 +29,13 @@ const routes: Routes = [
   { path: 'AddCategory/:id/:name', loadChildren: './pages/add-category/add-category.module#AddCategoryPageModule' },
   { path: 'EditCategory/:id', loadChildren: './pages/edit-category/edit-category.module#EditCategoryPageModule' },
   { path: 'EditCategoryName', loadChildren: './pages/edit-category-name/edit-category-name.module#EditCategoryNamePageModule' },
-  { path: 'addProduct', loadChildren: './pages/add-product/add-product.module#AddProductPageModule' }
+  { path: 'addProduct', loadChildren: './pages/add-product/add-product.module#AddProductPageModule' },
+  { path: 'productList', loadChildren: './pages/product-list/product-list.module#ProductListPageModule' },
+  { path: 'productDetail/:id', loadChildren: './pages/product-detail/product-detail.module#ProductDetailPageModule' },
+  { path: 'sharepage', loadChildren: './pages/sharepage/sharepage.module#SharepagePageModule' },
+  { path: 'productEdit/:id', loadChildren: './pages/product-edit/product-edit.module#ProductEditPageModule' },
+  { path: 'productStock/:id', loadChildren: './pages/product-stock/product-stock.module#ProductStockPageModule' },
+  { path: 'productAdd', loadChildren: './pages/product-add/product-add.module#ProductAddPageModule' }
 ];
 
 @NgModule({
