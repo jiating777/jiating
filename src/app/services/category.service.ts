@@ -70,16 +70,6 @@ export class CategoryService {
     return true;
   }
 
-  getListByCategoryId(id): AjaxResult {
-    return {
-      targetUrl: '',
-      result:  '',
-      success: true,
-      error: null,
-      unAuthorizedRequest: false
-    };
-  }
-
   insertSubCategory(sub: any, id: number): boolean {
     let currentCategory = this.localStorage.get('category', 'null');
     console.log(id);
