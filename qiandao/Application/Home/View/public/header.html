@@ -1,0 +1,37 @@
+<!-- BEGIN PAGE TOP -->
+<div class="page-top">
+    <!-- BEGIN TOP NAVIGATION MENU -->
+    <div class="top-menu">
+        <ul class="nav navbar-nav pull-right">
+            <li class="dropdown dropdown-user">
+                <a href="{:U('common/delcache')}" class="dropdown-toggle">
+                    <i class="fa fa-refresh"></i> 清除缓存&nbsp;&nbsp;&nbsp;&nbsp;
+                </a>
+            </li>
+            <!-- BEGIN USER LOGIN DROPDOWN -->
+            <li class="dropdown dropdown-user">
+                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <img class="img-circle" src="__PUBLIC__/admin/img/avatar.jpg" alt="" />
+                    <span class="username username-hide-on-mobile"> {$adminInfo.name} </span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-default">
+                    <li>
+                        <a href="{:U('admin/admin/profile')}">
+                            <i class="icon-user"></i> 个人中心
+                        </a>
+                    </li>
+                    <li class="divider"> </li>
+                    <li>
+                        <a href="{:U('admin/auth/logout')}" onclick="localStorage.clear();">
+                            <i class="icon-key"></i> 退出
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- END USER LOGIN DROPDOWN -->
+        </ul>
+    </div>
+    <!-- END TOP NAVIGATION MENU -->
+</div>
+<!-- END PAGE TOP -->

@@ -1,0 +1,28 @@
+<div class="col-md-4">
+    <div class="form-inline inline-block">
+        {notempty name="pageSize.size"}
+        <form action="{$pageSize.url}" method="get">
+            <label for="pageSize">
+                每页显示&nbsp;
+                <select id="pageSize" class="form-control input-xsmall input-inline" name="pageSize" onchange="this.form.submit();">
+                    {foreach name="pageSize.size" item="size"}
+                    <option value="{$size}" {if condition="($size == $pageSize.current)"}selected="selected"{/if}>{$size}</option>
+                    {/foreach}
+                </select>
+                &nbsp;条记录，&nbsp;共{$pageSize.total}条
+            </label>
+            {foreach name="param" item="value" key="key"}
+            {php}if($key == 'pageSize'){continue;}{/php}
+            <input type="hidden" name="{$key}" value="{$value}">
+            {/foreach}
+        </form>
+        {/notempty}
+    </div>
+</div>
+<div class="col-md-8">
+    <div class="paginate inline-block pull-right">
+        {if condition="($hasPaginate)"}
+        {$datas->render()}
+        {/if}
+    </div>
+</div>

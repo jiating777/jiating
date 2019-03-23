@@ -1,0 +1,122 @@
+/* here you can put your own css to customize and override the theme */
+
+#advancedSearch .portlet-title {
+    cursor: pointer;
+}
+.portlet.box.green {
+    border: solid 1px #acb5c3;
+}
+.portlet.box.green>.portlet-title, .portlet.green, .portlet>.portlet-body.green {
+    background-color: #bfcad1;
+}
+.portlet.box.green.opened {
+    border: 1px solid #5cd1db;
+}
+.portlet.box.green.opened>.portlet-title, .portlet.opened.green, .portlet.opened>.portlet-body.green {
+    background-color: #32c5d2;
+}
+
+
+/*uploadfile*/
+#upload-image img, #cover-image img {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+}
+#upload-image img.del, #cover-image img.del {
+    width: 24px;
+    height: 24px;
+    margin-top: -97px;
+    margin-left: -16px;
+    cursor: pointer;
+    border: 0;
+}
+
+.uploader-div {
+    border: solid 1px #ccc;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.uploader-div .icon {
+    font-size: 40px;
+    color: #999999;
+}
+
+/*表格*/
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+    border: 1px solid #f4f4f4;
+    text-align: center;
+}
+
+
+/*Tab*/
+.tabbable-custom>.nav-tabs>li.active {
+    border-top: 3px solid #36c6d3;
+}
+
+
+@media (min-width: 992px){
+    .page-sidebar-menu-hover-submenu li:hover a>.arrow {
+        border-right: 8px solid #fff;
+    }
+}
+
+
+
+/*
+body {
+    background-color: #ffffff;
+}
+.page-sidebar, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover {
+    background-color: #ffffff;
+}
+.page-sidebar .page-sidebar-menu>li.active.open>a, .page-sidebar .page-sidebar-menu>li.active>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.active.open>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.active>a {
+    background: #3EC25D;
+}
+.page-sidebar .page-sidebar-menu>li>a:hover, .page-sidebar .page-sidebar-menu>li>a:hover, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a:hover, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a:hover {
+    background: #3EC25D;
+}
+.page-sidebar .page-sidebar-menu>li.active.open>a:hover, .page-sidebar .page-sidebar-menu>li.active>a:hover, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.active.open>a:hover, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.active>a:hover {
+    background: #3EC25D;
+}
+.page-sidebar .page-sidebar-menu>li>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a>i {
+    font-size: 35px;
+}
+.page-sidebar .page-sidebar-menu>li.active>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.active.open>a>i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.active>a>i {
+    color: #ffffff;
+    font-size: 35px;
+}
+.page-sidebar .page-sidebar-menu>li.active>a>.selected, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.active>a>.selected {
+    top: 42px;
+}
+.page-sidebar .page-sidebar-menu>li.active:hover>a>.selected, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li.active:hover>a>.selected {
+    color: #3EC25D;
+    background: #3EC25D;
+}
+@media (min-width: 992px){
+    .page-sidebar-menu-hover-submenu li:hover a>.arrow {
+        border-right: 8px solid #3EC25D;
+    }
+}
+.page-header.navbar .page-logo {
+    background: #ffffff;
+}
+.page-header.navbar .menu-toggler {
+    background-image: url(../img/sidebar-toggler01.png);
+}
+.page-sidebar .page-sidebar-menu>li, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li {
+    height: 100px;
+}
+.page-sidebar .page-sidebar-menu>li>a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu>li>a {
+    border-top: 1px solid #ffffff;
+    height: 100px;
+    padding: 30px 15px 15px;
+}
+*/

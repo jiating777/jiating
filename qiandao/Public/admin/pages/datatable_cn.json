@@ -1,0 +1,15 @@
+{	
+"lengthMenu": "每页显示 _MENU_ 条记录",
+"emptyTable": "暂无数据记录",
+"info": "显示 _START_ 至 _END_ 条数据，共 _TOTAL_ 条记录！",
+"zeroRecords": "没有搜索到匹配记录",
+"infoEmpty": "",
+"infoFiltered": "",
+"processing": "数据加载中,请稍后...",
+"paginate": {
+    "first": "首页",
+    "previous": "",
+    "next": "",
+    "last": "末页"
+}
+}

@@ -1,0 +1,35 @@
+{notempty name="searchFields"}
+<div class="row">
+    <div class="col-md-9">
+        <form action="" class="form" method="post">
+            <div class="form-inline">
+                {foreach $searchFields as $search}
+                    <label>{$search.label} ：</label>
+                    {switch name="search.type" }
+                        {case value="text"}
+                        <input type="text" class="form-control" name="{$search.field}" />
+                        {/case}
+                        {case value="select"}
+                        <select class="form-control" name="{$search.field}">
+                            {foreach $search.data as $opt}
+                            <option value="{$opt}">{$opt}</option>
+                            {/foreach}
+                        </select>
+                        {/case}
+                        {default /}
+                        <input type="text" class="form-control" name="{$search.field}" />
+                    {/switch}
+                    &nbsp;&nbsp;&nbsp;
+                {/foreach}
+
+                <button type="submit" class="btn btn-success" title="筛选">
+                    <i class="fa fa-search"></i> 筛选
+                </button>
+                <a href="javascript:;" class="btn btn-danger" title="删除"><i class="fa fa-trash"></i> 删除</a>
+            </div>
+        </form>
+    </div>
+</div>
+{else /}
+<h3 class="box-title">{$title}</h3>
+{/notempty}
