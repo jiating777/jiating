@@ -1,0 +1,2 @@
+<label>{$search.label} ：</label>
+<input type="text" class="form-control" name="{$search.field}" {if condition="($search.disabled)"}disabled="disabled"{/if} value="{notempty name='params'}{$params[$search.field]}{/notempty}" />

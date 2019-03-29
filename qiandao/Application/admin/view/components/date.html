@@ -1,0 +1,5 @@
+<label>{$search.label} ：</label>
+<!--<div class="form-control date-picker" data-date-format="Y-m-d">-->
+    <input type="text" class="form-control date-picker" name="{$search.field}" {if condition="($search.disabled)"}disabled="disabled"{/if} value="{notempty name='params'}{$params[$search.field]}{/notempty}" autocomplete="off" />
+<!--
+</div>-->

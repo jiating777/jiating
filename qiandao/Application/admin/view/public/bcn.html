@@ -1,0 +1,12 @@
+{if condition="($breadcrumbs)"}
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="icon-home"></i>
+            <a href="{:url('admin/index/index')}">首页</a>
+            <!--<i class="fa fa-angle-right"></i>-->
+        </li>
+        {foreach $breadcrumbs as $breadcrumb}
+            {$breadcrumb}
+        {/foreach}
+    </ul>
+{/if}

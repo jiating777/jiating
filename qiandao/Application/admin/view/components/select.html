@@ -1,0 +1,6 @@
+<label>{notempty name="search.label"} {$search.label} ：{/notempty}</label>
+<select class="form-control" name="{$search.field}">
+    {foreach name="search.data" item="opt" key="key"}
+        <option value="{$key}">{$opt}</option>
+    {/foreach}
+</select>

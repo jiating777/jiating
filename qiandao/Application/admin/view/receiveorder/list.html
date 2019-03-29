@@ -1,0 +1,83 @@
+{extend name="layout/layout" /}
+
+{block name="content"}
+<div class="row js-check-wrap">
+    <div class="col-lg-12">
+        <div class="portlet light">
+            <div class="box-header">
+                <div class="row">
+                    <div class="col-md-10">
+                        <form id="searchForm" action="{$pageSize.url}" class="form" method="post">
+                            <div class="form-inline">
+                                <select id="city" name="cityId" class="form-control"></select>
+                                <select id="xian" name="xianId" class="form-control"></select>
+                                <select id="town" name="townId" class="form-control" data-hasvillage="on"></select>
+                                <select id="village" name="villageId" class="form-control"></select>
+                                <input type="hidden" class="form-control city" name="city" value="">
+                                <input type="hidden" class="form-control xian" name="xian" value="">
+                                <input type="hidden" class="form-control town" name="town" value="">
+                                <input type="hidden" class="form-control village" name="village" value="">
+
+                                <!--<select id="type" name="typeId" class="form-control"></select>
+                                <select id="varietie" name="varietieId" class="form-control"></select>
+                                <input type="hidden" class="form-control type" name="type" value="">
+                                <input type="hidden" class="form-control varietie" name="varietie" value="">-->
+
+                                <select id="status" name="status" class="form-control">
+                                    <option value="">全部</option>
+                                    {foreach name="statusList" item="status" key="statuskey"}
+                                    <option value="{$statuskey}">{$status}</option>
+                                    {/foreach}
+                                </select>
+                                <input type="text" class="form-control" name="orderNO" value="" placeholder="订单号">
+
+                                &nbsp;&nbsp;&nbsp;
+                                <button id="doSearch" type="button" class="btn btn-success" title="筛选">
+                                    <i class="fa fa-search"></i> 筛选
+                                </button>
+                                <!--<a href="{$currentUrl}?reset=1" class="btn btn-danger"><i class="fa fa-trash"></i> 清空</a>-->
+                                <button type="reset" class="btn btn-danger" title="清空">
+                                    <i class="fa fa-trash"></i> 清空
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="pull-right">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <form class="js-ajax-form" method="post">
+                    <div class="">
+                        <table id="data-table" class="table table-bordered table-hover dataTable">
+                            <thead>
+                            <th>姓名</th>
+                            <th>手机号</th>
+                            <th>收货地址</th>
+                            <th>邮编</th>
+                            <th>状态</th>
+                            <th>提交时间</th>
+                            <th>操作</th>
+                            </thead>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" class="datalist_url" value="{:url('admin/receiveorder/index')}">
+<input type="hidden" class="detail_url" value="{:url('admin/receiveorder/detail')}">
+<input type="hidden" class="delete_url" value="{:url('admin/receiveorder/delete')}">
+
+<input type="hidden" class="getcategory_url" value="{:url('admin/product/getcategory')}">
+{/block}
+
+{block name="pagescript"}
+<script src="__STATIC__/admin/pages/js/searcharea.js" type="text/javascript"></script>
+<script src="__STATIC__/admin/pages/js/receiveorder.js?v={:time()}" type="text/javascript"></script>
+{/block}

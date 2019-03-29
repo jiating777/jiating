@@ -1,0 +1,250 @@
+{extend name="layout/layout" /}
+
+{block name="pagecss"}
+<style>
+    .cover-image img {
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+    }
+    .cover-image img.del {
+        width: 24px;
+        height: 24px;
+        margin-top: -97px;
+        margin-left: -16px;
+        cursor: pointer;
+        border: 0;
+    }
+
+    .uploader-div {
+        border: solid 1px #ccc;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .uploader-div .icon {
+        font-size: 40px;
+        color: #999999;
+    }
+</style>
+{/block}
+
+{block name="content"}
+<div class="row">
+    <div class="col-md-12">
+        <div class="tabbable-custom nav-justified">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active">
+                    <a href="#tab_0" data-toggle="tab" aria-expanded="true"> 项目详情 </a>
+                </li>
+                <li>
+                    <a href="#tab_1" data-toggle="tab" aria-expanded="false" class="detail-tab"> 帮扶项目进展 </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_0">
+                    <div class="portlet light">
+                        <div class="portlet-body">
+                            <h3 class="text-center"> {$info.title} </h3>
+                            <div class="text-center">
+                                <span>发布方：{$info.organization} </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>发布时间： {$info.createDate} </span>
+                            </div>
+                            <div>
+                                {if condition="($info['type'] == 1)"}  <!-- 捐物品 -->
+                                <p>扶贫方式：捐物品</p>
+                                <p>捐助物品：{$info.productName}{$info.productNum}件</p>
+                                <p>收件人：{$info.receiveName}</p>
+                                <p>收件地址：{$info.receiveAddress}</p>
+                                <p>邮编：{$info.zipCode}</p>
+                                {else /}
+                                <p>扶贫方式：捐钱</p>
+                                <p>捐助总额：{$info.money/100}元</p>
+                                <p>收款账户姓名：{$info.accountName}</p>
+                                <p>收款银行：{$info.bankName}</p>
+                                <p>收款账户：{$info.bankCode}</p>
+                                {/if}
+                            </div>
+                            <br/>
+                            <p> {$info.content} </p>
+                            {volist name="$info.image" id="vo"}
+                            <img src="{$vo.imgUrl}" alt="" style="width: 100px;height: 100px;">
+                            {/volist}
+                            <div style="margin-top: 10px;">
+                                <p>贫困户：{$info->member->name}</p>
+                                <p>以上信息经国家精准扶贫档案系统审核认证通过</p>
+                                <p>帮扶人：{$info->memberaid->name}</p>
+                                <p>{$info->memberaid->job}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="tab_1">
+                    <div class="portlet light">
+                        <div class="portlet-body">
+                            <div class="form-group">
+                                <button class="btn default btn-block btn-lg addDetail-btn" style="width: 80%;margin-left: 10%;">添加进展</button>
+                            </div>
+                            <form action="" class="form-horizontal" name="ajaxForm">
+                                <div class="">
+                                    <table id="detail_table" class="table table-bordered table-hover dataTable">
+                                        <thead>
+                                        <th>捐助人</th>
+                                        <th>内容</th>
+                                        <th>创建时间</th>
+                                        <th>操作</th>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 详情 模态框 -->
+<div class="modal fade" id="view-modal" data-backdrop="static" data-keyboard="false" >
+    <div class="modal-dialog" style="width:800px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">x</button>
+                <h4 class="modal-title">扶贫项目进展</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet light">
+                            <div class="portlet-body">
+                                <form id="project-form" class="form-horizontal">
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">
+                                                        捐助人
+                                                        <span class="required">*</span>
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" id="title" maxlength="40" placeholder="最多输入40字" name="donateName" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {if condition="($info['type'] == 1)"}  <!-- 捐物品 -->
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">
+                                                        捐助物品
+                                                        <span class="required">*</span>
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" id="title" maxlength="40" placeholder="" name="donateContent" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">
+                                                        捐助数量
+                                                        <span class="required">*</span>
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control" id="title" maxlength="4" placeholder="" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"  name="donateNum" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {else /}
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">
+                                                        捐助金额
+                                                        <span class="required">*</span>
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <input type="number" class="form-control" id="title" name="donateMoney" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/if}
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">
+                                                        捐助图片
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <div id="upload-image" class="cover-imag">
+                                                            <span id="upload-btn" data-multi="true" data-ajax="true" data-field="imgUrl" data-total="6" >
+                                                                <img src="__STATIC__/admin/img/default.png" alt="图片上传" style="width: 100px;height: 100px;" />
+                                                            </span>
+                                                        </div>
+                                                        (最多6张)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" class="id" name="id" value="">
+                                        <input type="hidden" name="projectId" value="{$info.id}">
+                                        <input type="hidden" class="type" value="{$info.type}">
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- END SAMPLE FORM PORTLET-->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn blue saveDetail-btn"> 确定 </button>
+                <button type="button" class="btn default" data-dismiss="modal"> 关闭 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" class="token_url" value="{:url('admin/Image/token')}">
+<input type="hidden" class="record_url" value="{:url('admin/Image/record')}">
+<input type="hidden" class="delimage_url" value="{:url('admin/Image/delete')}">
+
+<input type="hidden" class="projectId" name="projectId" value="{$info.id}">
+
+<input type="hidden" name="imgcount" value="">
+
+
+
+{/block}
+
+{block name="pagescript"}
+<script>
+    var detailList_url  = "{:url('admin/'.strtolower($model).'/detailList')}";
+    var detailEdit_url = "{:url('admin/'.strtolower($model).'/detailEdit')}";
+    var detailSave_url = "{:url('admin/'.strtolower($model).'/detailSave')}";
+    var detailDelete_url = "{:url('admin/'.strtolower($model).'/deleteDetail')}";
+    var total = 6;
+    var imgcount = 0;
+</script>
+<script src="__STATIC__/admin/js/qiniu/plupload.full.min.js" type="text/javascript"></script>
+<script src="__STATIC__/admin/js/qiniu/qiniu.js" type="text/javascript"></script>
+<script src="__STATIC__/admin/js/qiniu/qiniuConfig.js" type="text/javascript"></script>
+<script src="__STATIC__/admin/pages/js/uploadfile.js" type="text/javascript"></script>
+<script src="__STATIC__/admin/pages/js/povertyproject.js" type="text/javascript"></script>
+{/block}

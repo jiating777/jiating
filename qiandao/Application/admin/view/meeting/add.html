@@ -1,0 +1,273 @@
+{extend name="layout/layout" /}
+
+{block name="pagecss"}
+<link href="__STATIC__/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
+<link href="__STATIC__/plugins/ueditor/ueditor.css" rel="stylesheet" type="text/css" />
+<style>
+
+    #upload-image img {
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+    }
+    #edui1_imagescale{display:none !important;}  /*点击上传的图片后出现的拉伸边框*/
+    .edui-editor-bottomContainer{display: none;}
+
+</style>
+{/block}
+
+{block name="content"}
+<div class="row">
+    <div class="col-md-12">
+        <div class="tabbable-custom nav-justified">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active">
+                    <a href="#tab_0" data-toggle="tab" aria-expanded="true" class="meeting-tab"> 会议信息 </a>
+                </li>
+                <li>
+                    <a href="#tab_1" data-toggle="tab" aria-expanded="false" class="join-tab"> 参会人员 </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_0">
+                    <div class="portlet light">
+                        <div class="portlet-body">
+                            <form action="{:url('admin/'.strtolower($model).'/addpost')}" class="form-horizontal validation-form" method="post" enctype="multipart/form-data">
+                                {:token()}
+                                <div class="form-body">
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="col-md-9">
+                                            <div class="form-inline">
+                                                <label class="control-label col-md-3">
+                                                    选择乡村
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    {include file="common:selectarea" /}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    会议主题
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" id="title" maxlength="40" placeholder="最多输入40字" name="title" value="" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    日期
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" id="date" name="date" value="" autocomplete="off" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    时间
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" id="startTime" name="startTime" value="" placeholder="开始时间" autocomplete="off" readonly>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control" id="endTime" name="endTime" value="" placeholder="结束时间" autocomplete="off" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    会议地点
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" id="address" name="address" value="" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    会议简介
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <script id="container" name="content" type="text/plain"></script>
+                                                    <!--<div id="custom_toolbar" class="hidden"></div>
+                                                    <div id="upload-toolbar">
+                                                        <span id="pickfiles" href="javascript:void 0;"></span>
+                                                        <span id="pickvideos" href="javascript:;"></span>
+                                                    </div>-->
+                                                    <div id="pro_txt" class="hidden"></div>
+                                                    <div id="btn-uploader1">
+                                                        <a id="pickfiles1" href="javascript:void 0;"></a>
+                                                    </div>
+                                                    <a id="pickfilesforarticleRadio" href="javascript:;"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" class="meetingId" name="id" value="">
+
+                                    <hr />
+                                    <div class="row">
+                                        <div class="form-actions">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <button type="button" id="form-submit" class="btn blue save-btn">
+                                                    下一步 <i class="fa fa-chevron-right"></i>
+                                                </button>
+                                                <button type="button" class="btn default" onclick="history.go(-1);">
+                                                    返回 <i class="fa fa-mail-forward"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="tab_1">
+                    <div class="portlet light">
+                        <div class="portlet-body">
+                            <div class="form-group">
+                                <button class="btn default btn-block btn-lg addMember-btn" style="width: 80%;margin-left: 10%;">添加参会人员</button>
+                            </div>
+
+                            <form action="" class="form-horizontal" name="ajaxForm">
+                                <div class="">
+                                    <table id="joinmeeting-datatable" class="table table-bordered table-hover dataTable">
+                                        <thead>
+                                        <th>参会人员</th>
+                                        <th>组织</th>
+                                        <th>职务</th>
+                                        <th>操作</th>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <input type="hidden" class="memberIds" value="" >
+
+                                <div class="row" style="margin-top: 30px;">
+                                    <div class="form-actions">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <button type="button" class="btn blue secondstep-btn">
+                                                保存 <i class="fa fa-floppy-o"></i>
+                                            </button>
+                                            <button type="button" class="btn default back-firststep">
+                                                返回 <i class="fa fa-mail-forward"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 详情 模态框 -->
+<div class="modal fade" id="view-modal" data-backdrop="static" data-keyboard="false" >
+    <div class="modal-dialog" style="width:800px; height: 520px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">x</button>
+                <h4 class="modal-title">参会人员</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet light" style="margin-bottom: 0;">
+                            <div class="box-header">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <form id="searchForm" action="" class="form" method="post">
+                                            <div class="form-inline">
+                                                <input type="text" class="form-control" name="name" value="" placeholder="姓名">
+                                                &nbsp;&nbsp;&nbsp;
+                                                <button id="doSearch" type="button" class="btn btn-success" title="搜索">
+                                                    <i class="fa fa-search"></i> 搜索
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <form id="joinmeeting-form" action="" class="form-horizontal" name="ajaxForm">
+                                    <div class="">
+                                        <table id="member-datatable" class="table table-bordered table-hover dataTable">
+                                            <thead>
+                                            <th>头像</th>
+                                            <th>姓名</th>
+                                            <th>职务</th>
+                                            <th>操作</th>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn blue saveJoinmember-btn"> 确定 </button>
+                <button type="button" class="btn default" data-dismiss="modal"> 关闭 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" class="token_url" value="{:url('admin/Image/token')}">
+<input type="hidden" class="record_url" value="{:url('admin/Image/record')}">
+<input type="hidden" class="delimage_url" value="{:url('admin/Image/delete')}">
+
+<input type="hidden" class="redirect_url" value="{:url('admin/'.strtolower($model).'/index')}">
+<input type="hidden" class="save_url" value="{:url('admin/'.strtolower($model).'/savepost')}">
+
+<input type="hidden" class="joinmeetingDatalist_url" value="{:url('admin/'.strtolower($model).'/joinmeetinglist')}">
+<input type="hidden" class="joinmeetingDelete_url" value="{:url('admin/'.strtolower($model).'/deljoinmeeting')}">
+<input type="hidden" class="joinmeetingAdd_url" value="{:url('admin/'.strtolower($model).'/addjoinmeeting')}">
+<input type="hidden" class="memberDatalist_url" value="{:url('admin/'.strtolower($model).'/memberlist')}">
+{/block}
+
+{block name="pagescript"}
+<script src="__STATIC__/plugins/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+
+<script src="__STATIC__/admin/js/qiniu/plupload.full.min.js" type="text/javascript"></script>
+<script src="__STATIC__/admin/js/qiniu/qiniu.js" type="text/javascript"></script>
+<script src="__STATIC__/admin/js/qiniu/custom.js" type="text/javascript"></script>
+<script src="__STATIC__/admin/js/qiniu/qiniuConfig.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="__STATIC__/plugins/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/plugins/ueditor/ueditor.all.js"></script>
+<script src="__STATIC__/admin/pages/js/ueditor.js" type="text/javascript"></script>
+
+<script src="__STATIC__/admin/pages/js/meeting.js" type="text/javascript"></script>
+<script src="__STATIC__/admin/pages/js/joinmeeting.js" type="text/javascript"></script>
+{/block}

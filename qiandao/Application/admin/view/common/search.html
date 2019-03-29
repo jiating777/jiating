@@ -1,0 +1,36 @@
+{notempty name="searchFields"}
+<div class="col-md-10">
+    <form id="searchForm" action="{$pageSize.url}" class="form" method="get">
+        <div class="form-inline">
+            {foreach $searchFields as $search}
+                {/*{php}include(APP_PATH . "admin/view/components/" . $search['type'] . ".html");{/php}*/}
+                {switch name="search.type" }
+                    {case value="text"}
+                        {include file="components:text" /}
+                    {/case}
+                    {case value="select"}
+                        {include file="components:select" /}
+                    {/case}
+                    {case value="date"}
+                        {include file="components:date" /}
+                    {/case}
+                        {default /}
+                        {include file="components:text" /}
+                {/switch}
+                &nbsp;&nbsp;&nbsp;
+            {/foreach}
+
+            <button id="doSearch" type="button" class="btn btn-success" title="筛选">
+                <i class="fa fa-search"></i> 筛选
+            </button>
+            <!--<a href="{:url('admin/'.strtolower($model).'/index')}?reset=1" class="btn btn-danger"><i class="fa fa-trash"></i> 清空</a>-->
+            <!--<a href="{$currentUrl}?reset=1" class="btn btn-danger"><i class="fa fa-trash"></i> 清空</a>-->
+            <button type="reset" class="btn btn-danger" title="清空">
+                <i class="fa fa-trash"></i> 清空
+            </button>
+        </div>
+    </form>
+</div>
+{else /}
+<h3 class="box-title"></h3>
+{/notempty}

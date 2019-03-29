@@ -1,0 +1,112 @@
+<!-- 村列表中的区域筛选 -->
+<div class="col-md-10">
+    <form action="{:url('admin/villages/index')}" class="form" method="post">
+        <div class="form-inline">
+            <select class="form-control city" name="cityId"  {if condition="($admin.type == 5) or ($admin.type == 4) "} disabled {/if} onchange="getList(this,type='xian')" >
+                <option value="0">所有市</option>
+                {volist name="city" id="vo"}
+                {if condition="($admin.type == 0) "}
+                <option  value="{$key}">{$vo}</option>
+                {else/}
+                <option {eq name="key" value="$admin.villageId"} selected {/eq} value="{$key}">{$vo}</option>
+                {/if}
+                {/volist}
+            </select>
+
+            <select class="form-control xian" name="xianId"  {if condition="($admin.type == 5) or ($admin.type == 4) "} disabled {/if} onchange="getList(this,type='town')" >
+                <option value="0">所有区县</option>
+            </select>
+
+            <select class="form-control town" name="townId"  {if condition="($admin.type == 5) or ($admin.type == 4) "} disabled {/if} >
+                <option value="0">所有乡镇</option>
+            </select>
+            <button type="submit" class="btn btn-success" title="筛选">
+                <i class="fa fa-search"></i> 筛选
+            </button>
+            <a href="{$currentUrl}?reset=1" class="btn btn-danger"><i class="fa fa-trash"></i> 清空</a>
+        </div>
+    </form>
+</div>
+
+<script src="__STATIC__/admin/js/jquery-3.3.1.min.js"></script>
+<script>
+    var posturl = "{:url('admin/layer/getCounty')}";
+    function getList(e,type) {
+        $('.'+type).html('');
+        var name = '';
+        if(type == 'xian') {
+            name = '所有区县';
+        } else if(type=='town') {
+            name = '所有乡镇';
+        } 
+        if(e.value != 0) {
+            $.ajax({
+                url : posturl,
+                type : 'post',
+                dataType : 'json',
+                contentType : "application/json; charset=utf-8",
+                data : JSON.stringify({'id':e.value}),
+            }).done(function(data) {
+                var $item = "<option value='0'>"+name+"</option>";
+                for (let i in data){
+                    $item += "<option  value='"+i+"' '>"+data[i]+"</option>";
+                }
+                $('.'+type).append($item);           
+            });
+        } else {
+            $('.'+type).append("<option value='0'>"+name+"</option>");
+        }
+    }
+    {notempty name="param.cityId"}
+        getList2({$param.cityId},'xian');
+        $('.city option').each(function() {
+            if($(this).val() == {$param.cityId}) {
+                $(this).prop('selected',true);
+            }
+        });
+    {/notempty}
+
+    {notempty name="param.xianId"}
+        console.log({$param.xianId});
+        getList2({$param.xianId},'town');
+        $('.xian option').each(function() {
+            if($(this).val() == {$param.xianId}) {
+                $(this).prop('selected',true);
+            }
+        });
+    {/notempty}
+
+    function getList2(id,type) {
+        $('.'+type).html('');
+        var name = '';
+        var selectId = 0;
+        if(type == 'xian') {
+            name = '所有区县';
+            {notempty name="param.xianId"} selectId = {$param.xianId}; {/notempty}
+        } else if(type=='town') {
+            name = '所有乡镇';
+            {notempty name="param.townId"} selectId = {$param.townId}; {/notempty}
+        }
+        if(id != 0) {
+            $.ajax({
+                url : posturl,
+                type : 'post',
+                dataType : 'json',
+                contentType : "application/json; charset=utf-8",
+                data : JSON.stringify({'id':id}),
+            }).done(function(data) {
+                var $item = "<option value='0'>"+name+"</option>";
+                for (let i in data){
+                    $item += "<option  value='"+i+"'";
+                    if(selectId == i){
+                        $item += " selected ";
+                    }
+                    $item += " '>"+data[i]+"</option>";
+                }
+                $('.'+type).append($item);           
+            });
+        } else {
+            $('.'+type).append("<option value='0'>"+name+"</option>");
+        }
+    }
+</script>

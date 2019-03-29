@@ -1,0 +1,156 @@
+{extend name="layout/layout" /}
+
+{block name="content"}
+<style>
+    .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td{
+        line-height: 40px;
+    }
+</style>
+<div class="row js-check-wrap">
+    <div class="col-lg-12">
+        <div class="box box-success">
+            <div class="box-header with-border">
+                {include file="common:search" /}
+                <div class="box-tools pull-right">
+                    {if condition="($admin.type == 0) "}<button class="btn btn-primary btn-sm add-btn" data-title="新增乡镇"><i class="fa fa-plus"></i> 新增乡镇</button> {/if}
+                </div>
+            </div>
+
+            <div class="box-body ">
+                <form class="js-ajax-form" method="post">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover dataTable">
+                            <thead>
+                                <th>乡镇名称</th>
+                                <th>登录账号</th>
+                                <th>村子数</th>
+                                <th>操作</th>
+                            </thead>
+                            <tbody>
+                            {foreach $datas as $data}
+                            <tr>
+                                <td>{$data->name}</td>
+                                <td>{$data->loginName}</td>
+                                <td>{$data->villageNum}</td>
+                                <td>
+                                    <button type="button" class="btn btn-info btn-xs edit-btn" data-id="{$data->id}"  data-name="{$data->name}"  data-lname="{$data->loginName}">编辑</button>
+                                </td>
+                            </tr>
+                            {/foreach}
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="common-modal" class="modal modal-member in" aria-hidden="false" style="display: none; padding-right: 17px;">
+    <div class="modal-dialog" style="width: 500px; margin: 194.5px auto;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">管理乡镇</h4>
+            </div>
+            <div class="modal-body" style="overflow-y: auto;">
+                <form  class="form-horizontal form" method="post" id="townTable">
+                    <div class="form-body">
+                        <input type="hidden" name="id" value="">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                        乡镇名称
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="name" data-required="1" name="name" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                        后台登录用户名
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="" data-required="1" placeholder="填写英文和数字" name="loginName" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                        登录密码
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="password" class="form-control" id="password" data-required="1" name="password" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-success" id="form-submit">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block name="pagescript"}
+<script>
+    $('.add-btn').on('click', function(){  //新建乡镇
+        $('#townTable').find('input[name="name"]').val('');
+        $('#townTable').find('input[name="loginName"]').val('');
+        $('#townTable').find('input[name="id"]').val('');
+        $('#townTable').find('input[name="password"]').attr('placeholder','');
+        $('#common-modal').modal('show');
+    });
+
+    $('.edit-btn').on('click',function(e){   //编辑
+        var id = $(this).attr('data-id');   //镇ID
+        var name = $(this).attr('data-name');   //乡镇名称
+        var loginName = $(this).attr('data-lname');   //后台登录用户名
+
+        $('#townTable').find('input[name="name"]').val(name);
+        $('#townTable').find('input[name="loginName"]').val(loginName);
+        $('#townTable').find('input[name="id"]').val(id);
+
+        $('#townTable').find('input[name="password"]').attr('placeholder','若不修改则不填');
+
+        $('#common-modal').modal('show'); 
+    });
+
+    $('.modal-footer .btn-success').on('click',function(){  //数据提交保存
+        var _data = $('#townTable').serializeObject();
+        $("#form-submit").attr("disabled","disabled");
+        $.ajax({
+            url : "{:url('admin/town/savePost')}",
+            type : 'post',
+            dataType : 'json',
+            contentType : "application/json; charset=utf-8",
+            data : JSON.stringify(_data),
+        }).done(function(data) {
+            console.log(data);
+            if (data.code == 1) {
+                layer.msg('保存成功');
+                window.location.href = data.url; //加载页面数据
+            } else if (data.code === 0 ) {  // 错误
+                console.log(data.msg);
+                $("#form-submit").removeAttr("disabled");
+                layer.msg(data.msg); // 返回错误信息
+            }
+        });
+    });
+</script>
+{/block}

@@ -1,0 +1,193 @@
+{extend name="layout/layout" /}
+
+{block name="pagecss"}
+<link href="__STATIC__/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
+{/block}
+
+{block name="content"}
+<div class="row">
+    <div class="col-md-12">
+        <div class="tabbable-custom nav-justified">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active">
+                    <a href="#tab_0" data-toggle="tab" aria-expanded="true" class="onlineexam-tab"> 考试 </a>
+                </li>
+                <li>
+                    <a href="#tab_1" data-toggle="tab" aria-expanded="false" class="exam-tab"> 题目 </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_0">
+                    <div class="portlet light">
+                        <div class="portlet-body">
+                            <form action="{:url('admin/'.strtolower($model).'/addpost')}" class="form-horizontal validation-form" method="post" enctype="multipart/form-data">
+                                {:token()}
+                                <div class="form-body">
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="col-md-9">
+                                            <div class="form-inline">
+                                                <label class="control-label col-md-3">
+                                                    所在地
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <p class="form-control-static"> {$area} </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    考试名称
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" id="name" maxlength="40" placeholder="最多输入40字" name="name" value="{$info.name}" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    及格分
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <input type="number" class="form-control" id="passingGrade" name="passingGrade" value="{$info.passingGrade}" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    考试时间
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control" id="date" name="date" value="{$info.date}" placeholder="选择日期" >
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control" id="startTime" name="startTime" value="{$info.startTime2}" placeholder="开始时间" autocomplete="off" readonly>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" class="form-control" id="endTime" name="endTime" value="{$info.endTime2}" placeholder="结束时间" autocomplete="off" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    考试说明
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <textarea class="form-control" name="explain" rows="3">{$info.explain}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" class="examId" name="id" value="{$info.id}">
+
+                                    <hr />
+                                    <div class="row">
+                                        <div class="form-actions">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <button type="button" id="form-submit" class="btn blue save-btn">
+                                                    下一步 <i class="fa fa-chevron-right"></i>
+                                                </button>
+                                                <button type="button" class="btn default" onclick="history.go(-1);">
+                                                    返回 <i class="fa fa-mail-forward"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="tab_1">
+                    <div class="portlet light">
+                        <div class="portlet-body">
+                            <div class="form-group">
+                                <button class="btn default btn-block btn-lg addExam-btn" style="width: 80%;margin-left: 10%;">添加考题</button>
+                            </div>
+
+                            <form action="" class="form-horizontal" name="ajaxForm">
+                                <div class="">
+                                    <table id="exam-datatable" class="table table-bordered table-hover dataTable">
+                                        <thead>
+                                        <th>题号</th>
+                                        <th>题目</th>
+                                        <th>类型</th>
+                                        <th>分数</th>
+                                        <th>操作</th>
+                                        </thead>
+                                    </table>
+                                </div>
+
+                                <div class="row" style="margin-top: 30px;">
+                                    <div class="form-actions">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <button type="button" class="btn blue secondstep-btn">
+                                                保存 <i class="fa fa-floppy-o"></i>
+                                            </button>
+                                            <button type="button" class="btn default back-firststep">
+                                                返回 <i class="fa fa-mail-forward"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 详情 模态框 -->
+<div class="modal fade" id="view-modal" data-backdrop="static" data-keyboard="false" >
+    <div class="modal-dialog" style="width:800px; height: 520px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">x</button>
+                <h4 class="modal-title">考题</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn blue saveExam-btn"> 确定 </button>
+                <button type="button" class="btn default" data-dismiss="modal"> 关闭 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" class="redirect_url" value="{:url('admin/'.strtolower($model).'/index')}">
+<input type="hidden" class="save_url" value="{:url('admin/'.strtolower($model).'/savepost')}">
+
+<input type="hidden" class="examDatalist_url" value="{:url('admin/'.strtolower($model).'/examquestions')}">
+<input type="hidden" class="examDelete_url" value="{:url('admin/'.strtolower($model).'/delexam')}">
+<input type="hidden" class="viewExam_url" value="{:url('admin/'.strtolower($model).'/viewexam')}">
+<input type="hidden" class="saveExam_url" value="{:url('admin/'.strtolower($model).'/saveexam')}">
+<input type="hidden" class="checkExamNumber_url" value="{:url('admin/'.strtolower($model).'/checkexamnumber')}">
+{/block}
+
+{block name="pagescript"}
+<script src="__STATIC__/plugins/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+<script src="__STATIC__/admin/pages/js/onlineexam.js" type="text/javascript"></script>
+<script src="__STATIC__/admin/pages/js/examquestions.js" type="text/javascript"></script>
+{/block}

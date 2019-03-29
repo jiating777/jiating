@@ -1,0 +1,208 @@
+{extend name="layout/layout" /}
+
+{block name="content"}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-share font-dark"></i>
+                    <span class="caption-subject font-dark bold uppercase"> 个人中心</span>
+                </div>
+                <div class="actions">
+                    <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title="" title=""> </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <form action="{:url('admin/'.strtolower($model).'/profile')}" class="form-horizontal post-form" method="post" enctype="multipart/form-data">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        姓名
+                                    </label>
+                                    <div class="col-md-9">
+                                        <span class="form-control">{$adminInfo.name}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        账号
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="loginName" data-required="1" name="loginName" data-name="{$adminInfo.loginName}" value="{$adminInfo.loginName}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        原始密码
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="password" class="form-control" id="password" data-required="1" name="password" data-password="{$adminInfo.password}" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        新密码
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="password" class="form-control" id="newpassword" data-required="1" name="newpassword" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        确认密码
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="password" class="form-control" id="confirmpassword" data-required="1" name="confirmpassword" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"></label>
+                                        <div class="col-md-9">
+                                            <button type="button" class="btn blue submit-btn">
+                                                保存 <i class="fa fa-floppy-o"></i>
+                                            </button>
+                                            <button type="button" class="btn default" onclick="history.go(-1);">
+                                                返回 <i class="fa fa-mail-forward"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" class="checkLoginName_url" value="{:url('admin/auth/checkname')}">
+{/block}
+
+{block name="pagescript"}
+<script>
+    // 提交
+    $('.submit-btn').on('click', function(){
+        var _this = $(this);
+        var loginName = $('#loginName').val();
+
+        if(loginName.trim() == ''){
+            layer.msg('登录名不能为空！');
+            $('#loginName').focus();
+            return false;
+        }
+
+        // 检查登录名
+        var checkLoginName_url = $('.checkLoginName_url').val();
+        var ori_name = $('#loginName').data('name');
+        if(loginName != ori_name){
+            $.ajax({
+                url: checkLoginName_url,
+                type: 'POST',
+                data: {'loginName':loginName},
+                dataType : 'json',
+                success: function (data) {
+                    if(data.status == 1){
+                        layer.msg('该登录名已经存在！');
+                        $('#loginName').focus();
+                        return false;
+                    }else{
+                        submitForm(_this);
+                    }
+                }
+            });
+            return false;
+        }
+        submitForm(_this);
+
+        //$('.post-form').submit();
+    });
+
+    /**
+     * 表单提交
+     */
+    function submitForm(btnObj){
+        var _this = btnObj;
+        var loginName = $('#loginName').val();
+        var password = $('#password').val();
+        var newpassword = $('#newpassword').val();
+        var confirmpassword = $('#confirmpassword').val();
+
+        if(loginName.trim() == ''){
+            layer.msg('登录名不能为空！');
+            $('#loginName').focus();
+            return false;
+        }
+        if(password.trim() == ''){
+            layer.msg('原始密码不能为空！');
+            $('#password').focus();
+            return false;
+        }
+        if(newpassword.trim() == ''){
+            layer.msg('请输入新密码！');
+            $('#newpassword').focus();
+            return false;
+        }
+        if(password == newpassword){
+            layer.msg('新密码不能和原始密码一样！');
+            $('#newpassword').focus();
+            return false;
+        }
+        if(confirmpassword.trim() == ''){
+            layer.msg('请确认密码！');
+            $('#confirmpassword').focus();
+            return false;
+        }
+
+        if(newpassword != confirmpassword){
+            layer.msg('两次密码不一致！');
+            $('#confirmpassword').focus();
+            return false;
+        }
+
+        var url = $('.post-form').attr('action');
+        var _data = $('.post-form').serialize();
+        _this.prop("disabled", true);
+
+        $.ajax({
+            url : url,
+            type : 'post',
+            data : _data,
+            dataType : 'json',
+        }).done(function(data) {
+            _this.prop("disabled", false);
+            layer.msg(data.msg);
+            if (data.code == 1) {
+                window.location.reload();
+            }
+        });
+    }
+</script>
+{/block}

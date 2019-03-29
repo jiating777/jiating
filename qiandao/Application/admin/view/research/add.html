@@ -1,0 +1,215 @@
+{extend name="layout/layout" /}
+
+{block name="pagecss"}
+<link href="__STATIC__/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+{/block}
+
+{block name="content"}
+<div class="row">
+    <div class="col-md-12">
+        <div class="tabbable-custom nav-justified">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active">
+                    <a href="#tab_0" data-toggle="tab" aria-expanded="true" class="research-tab"> 基本信息 </a>
+                </li>
+                <li>
+                    <a href="#tab_1" data-toggle="tab" aria-expanded="false" class="project-tab"> 调研项目 </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_0">
+                    <div class="portlet light">
+                        <div class="portlet-body">
+                            <form action="{:url('admin/'.strtolower($model).'/addpost')}" class="form-horizontal validation-form" method="post" enctype="multipart/form-data">
+                                {:token()}
+                                <div class="form-body">
+                                    <div class="row" style="margin-bottom: 10px;">
+                                        <div class="col-md-9">
+                                            <div class="form-inline">
+                                                <label class="control-label col-md-3">
+                                                    选择乡村
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    {include file="common:selectarea" /}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    调研名称
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" id="name" maxlength="40" placeholder="最多输入40字" name="name" value="" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    截止时间
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" id="endTime" name="endTime" value="" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    封面图
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <div id="upload-image">
+                                                        <span id="upload-btn" data-multi="false">
+                                                            <input type="hidden" class="form-control" id="imgUrl" data-required="1" name="imgUrl" value="">
+                                                            <img src="__STATIC__/admin/img/default.png" alt="图片上传" style="width: 100px;height: 100px;" />
+                                                        </span>
+                                                    </div>
+                                                    (建议尺寸：135*90)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    前言
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <textarea class="form-control" name="preface" rows="3" maxlength="800"></textarea>
+                                                    <span class="help-block"> 最多800字符 </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    结语
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <textarea class="form-control" name="epilogue" rows="3" maxlength="800"></textarea>
+                                                    <span class="help-block"> 最多800字符 </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" class="researchId" name="id" value="">
+
+                                    <hr />
+                                    <div class="row">
+                                        <div class="form-actions">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <button type="button" id="form-submit" class="btn blue save-btn">
+                                                    下一步 <i class="fa fa-chevron-right"></i>
+                                                </button>
+                                                <button type="button" class="btn default" onclick="history.go(-1);">
+                                                    返回 <i class="fa fa-mail-forward"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="tab_1">
+                    <div class="portlet light">
+                        <div class="portlet-body">
+                            <div class="form-group">
+                                <button class="btn default btn-block btn-lg addProject-btn" style="width: 80%;margin-left: 10%;">添加项目</button>
+                            </div>
+
+                            <form action="" class="form-horizontal" name="ajaxForm">
+                                <div class="">
+                                    <table id="project-datatable" class="table table-bordered table-hover dataTable">
+                                        <thead>
+                                        <th>排序</th>
+                                        <th>调研标题</th>
+                                        <th>类型</th>
+                                        <th>操作</th>
+                                        </thead>
+                                    </table>
+                                </div>
+
+                                <div class="row" style="margin-top: 30px;">
+                                    <div class="form-actions">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <button type="button" class="btn blue secondstep-btn">
+                                                保存 <i class="fa fa-floppy-o"></i>
+                                            </button>
+                                            <button type="button" class="btn default back-firststep">
+                                                返回 <i class="fa fa-mail-forward"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 详情 模态框 -->
+<div class="modal fade" id="view-modal" data-backdrop="static" data-keyboard="false" >
+    <div class="modal-dialog" style="width:800px; height: 520px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">x</button>
+                <h4 class="modal-title">调研项目</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn blue saveProject-btn"> 确定 </button>
+                <button type="button" class="btn default" data-dismiss="modal"> 关闭 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" class="token_url" value="{:url('admin/Image/token')}">
+<input type="hidden" class="record_url" value="{:url('admin/Image/record')}">
+<input type="hidden" class="delimage_url" value="{:url('admin/Image/delete')}">
+<input type="hidden" class="redirect_url" value="{:url('admin/'.strtolower($model).'/index')}">
+<input type="hidden" class="save_url" value="{:url('admin/'.strtolower($model).'/savepost')}">
+
+<input type="hidden" class="projectDatalist_url" value="{:url('admin/'.strtolower($model).'/researchproject')}">
+<input type="hidden" class="projectDelete_url" value="{:url('admin/'.strtolower($model).'/delproject')}">
+<input type="hidden" class="viewProject_url" value="{:url('admin/'.strtolower($model).'/viewproject')}">
+<input type="hidden" class="saveProject_url" value="{:url('admin/'.strtolower($model).'/saveproject')}">
+<input type="hidden" class="checkProjectSorting_url" value="{:url('admin/'.strtolower($model).'/checkprojectsorting')}">
+{/block}
+
+{block name="pagescript"}
+<script src="__STATIC__/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="__STATIC__/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<script src="__STATIC__/admin/js/qiniu/plupload.full.min.js" type="text/javascript"></script>
+<script src="__STATIC__/admin/js/qiniu/qiniu.js" type="text/javascript"></script>
+<script src="__STATIC__/admin/js/qiniu/custom.js" type="text/javascript"></script>
+<script src="__STATIC__/admin/js/qiniu/qiniuConfig.js" type="text/javascript"></script>
+<script src="__STATIC__/admin/pages/js/uploadfile.js" type="text/javascript"></script>
+
+<script src="__STATIC__/admin/pages/js/research.js" type="text/javascript"></script>
+<script src="__STATIC__/admin/pages/js/researchproject.js" type="text/javascript"></script>
+{/block}

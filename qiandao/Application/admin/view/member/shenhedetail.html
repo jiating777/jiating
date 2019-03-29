@@ -1,0 +1,280 @@
+{extend name="layout/layout" /}
+
+{block name="content"}
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-share font-dark"></i>
+                    <span class="caption-subject font-dark bold uppercase"> 审核村民</span>
+                </div>
+                <div class="actions">
+                    <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title="" title=""> </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <form id="ajax-form" action="{:url('admin/'.strtolower($model).'/editpost')}" class="form-horizontal validation-form" method="post" enctype="multipart/form-data">
+                    {:token()}
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        审核状态
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        {if condition="$data.shenheStatus == 1"}
+                                        <p class="form-control-static"> 审核成功 </p>
+                                        {elseif condition="$data.shenheStatus == 2"}
+                                        <p class="form-control-static"> 审核中 </p>
+                                        {else /}<p class="form-control-static"> 审核失败 </p>
+                                        {/if}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {if condition="$data.shenheStatus == 3"}
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        审核失败原因
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static" style="color: red;"> {$data.failMsg} </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/if}
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        姓名
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static"> {$data.name} </p>
+                                        <input type="hidden" name="name" value="{$data.name}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        身份证
+                                    </label>
+                                    <div class="col-md-9">
+                                        <div>
+                                            <span data-multi="false">
+                                                <input type="hidden" class="form-control" id="avatar" data-required="1" name="cardImg" value="{$data.cardImg}">
+                                                <a href="{$data.cardImg}" target="_blank">
+                                                    <img src="{$data.cardImg}" alt="图片上传" style="width: 100px;height: 100px;" />
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        身份证号
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static"> {$data.identityNumber} </p>
+                                        <input type="hidden" name="identityNumber" value="{$data.identityNumber}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        头像
+                                    </label>
+
+                                    <div class="col-md-9">
+                                        <div id="">
+
+                                            <span class="multi-image">
+                                                <input type="hidden" class="form-control" data-required="1" name="avatar" value="{$data.avatar}">
+                                                <a href="{$data.avatar}" target="_blank">
+                                                    <img class="exist-image" src="{$data.avatar}" alt="" style="width: 100px;height: 100px;">
+                                                </a>
+                                            </span>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        所在地
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static"> {$data.city}->{$data.xian}->{$data.town} {if condition="$data.villageId"}->{$data.village}{/if}</p>
+                                        <input type="hidden" name="cityId" value="{$data.cityId}" />
+                                        <input type="hidden" name="xianId" value="{$data.xianId}" />
+                                        <input type="hidden" name="townId" value="{$data.townId}" />
+                                        {if condition="$data.villageId"}
+                                            <input type="hidden" name="villageId" value="{$data.villageId}" />
+                                        {/if}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        手机号
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static"> {$data.mobile} </p>
+                                        <input type="hidden" name="mobile" value="{$data.mobile}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        是否是党员
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">
+                                            {if condition="$data.isParty == 1"} 是
+                                            {else /} 不是
+                                            {/if}
+                                        </p>
+                                        <input type="hidden" name="isParty" value="{$data.isParty}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {if condition="$data.isParty == 1"}
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        党组织
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">
+                                            {$data.organizationname}
+                                        </p>
+                                        <input type="hidden" name="organizationId" value="{$data.organizationId}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/if}
+                        {if condition="$data.partyTime"}
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        入党时间
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">
+                                            {:date('Y-m-d', $data.partyTime)}
+                                        </p>
+                                        <input type="hidden" name="partyTime" value="{$data.partyTime}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/if}
+
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        家庭环境
+                                    </label>
+                                    {notempty name="homeImg"}
+                                    <div class="col-md-9">
+                                        <div id="cover-image">
+                                            {volist name="homeImg" id="v"}
+                                            <a href="{$v}" target="_blank">
+                                                <span class="multi-image">
+                                                    <img class="exist-image" src="{$v}" alt="">
+                                                </span>
+                                            </a>
+                                            {/volist}
+                                        </div>
+                                    </div>
+                                    {/notempty}
+                                </div>
+                            </div>
+                        </div>
+
+                        </div>
+
+                        <input type="hidden" name="id" value="{$data.id}">
+                        <input type="hidden" name="userId" value="{$data.userId}">
+
+                        <hr />
+                        <div class="row">
+                            <div class="form-actions">
+                                <div class="col-md-offset-2 col-md-10">
+                                    {if condition="$data.shenheStatus == 2"}
+                                    <button type="button" data-typebutton="1" class="btn green save-btn">
+                                        通过 <i class="glyphicon glyphicon-ok"></i>
+                                    </button>
+                                    <button type="button" data-typebutton="2" class="btn red save-btn">
+                                        不通过 <i class="glyphicon glyphicon-remove"></i>
+                                    </button>
+                                    {/if}
+                                    <button type="button" class="btn default" onclick="history.go(-1);">
+                                        返回 <i class="fa fa-mail-forward"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" class="token_url" value="{:url('admin/Image/token')}">
+<input type="hidden" class="record_url" value="{:url('admin/Image/record')}">
+<input type="hidden" class="delimage_url" value="{:url('admin/Image/delete')}">
+<input type="hidden" class="save_url" value="{:url('admin/member/shenhePost')}">
+<input type="hidden" class="no_save_url" value="{:url('admin/member/noshenhePost')}">
+<input type="hidden" class="datalist_url" value="{:url('admin/member/shenhe')}">
+
+{/block}
+
+{block name="pagescript"}
+<script>
+    var organizationUrl = "{:url('admin/layer/getOrganization')}";
+    var partylist = "{:url('admin/layer/partyList')}";
+</script>
+
+<script src="__STATIC__/admin/pages/js/shenhe.js?v={:time()}" type="text/javascript"></script>
+{/block}

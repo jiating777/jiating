@@ -1,0 +1,233 @@
+{if condition="($admin->type == 1)"}
+{$selectarea['cityname']}
+<input type="hidden" name="cityId" value="{$admin.cityId}">
+<select class="form-control xian"  name="xianId" >
+    <option value="0">所有区县</option>
+</select>
+
+<select class="form-control town"  name="townId" >
+    <option value="0">所有乡镇</option>
+</select>
+
+<select class="form-control village" name="villageId" >
+    <option value="0">所有村</option>
+</select>
+
+{elseif condition="($admin->type == 2)"}
+{$selectarea['cityname']}->{$selectarea['xianname']}
+<input type="hidden" name="cityId" value="{$admin.cityId}">
+<input type="hidden" name="xianId" value="{$admin.xianId}">
+<select class="form-control town"  name="townId" >
+    <option value="0">所有乡镇</option>
+</select>
+
+<select class="form-control village" name="villageId" >
+    <option value="0">所有村</option>
+</select>
+{elseif condition="($admin->type == 3) OR ($admin->type == 6)"}
+{$selectarea['cityname']}->{$selectarea['xianname']}->{$selectarea['townname']}
+<input type="hidden" name="cityId" value="{$admin.cityId}">
+<input type="hidden" name="xianId" value="{$admin.xianId}">
+<input type="hidden" name="townId" value="{$admin.townId}">
+<select class="form-control village" name="villageId" >
+    <option value="0">所有村</option>
+</select>
+{elseif condition="($admin->type == 4)"}
+{$selectarea['cityname']}->{$selectarea['xianname']}->{$selectarea['townname']}->{$selectarea['villagename']}
+<input type="hidden" name="cityId" value="{$admin.cityId}">
+<input type="hidden" name="xianId" value="{$admin.xianId}">
+<input type="hidden" name="townId" value="{$admin.townId}">
+<input type="hidden" name="villageId" value="{$admin.villageId}">
+{else /}
+<select class="form-control city" name="cityId" >
+    <option value="0">所有市</option>
+    {volist name="city" id="vo"}
+    <option  value="{$key}">{$vo}</option>
+    {/volist}
+</select>
+
+<select class="form-control xian"  name="xianId" >
+    <option value="0">所有区县</option>
+</select>
+
+<select class="form-control town"  name="townId" >
+    <option value="0">所有乡镇</option>
+</select>
+
+<select class="form-control village" name="villageId" >
+    <option value="0">所有村</option>
+</select>
+{/if}
+
+
+<input type="hidden" class="adminCity" value="{$admin.cityId}">
+<input type="hidden" class="adminXian" value="{$admin.xianId}">
+<input type="hidden" class="adminTown" value="{$admin.townId}">
+<input type="hidden" class="adminVillage" value="{$admin.villageId}">
+
+<script src="__STATIC__/admin/js/jquery-3.3.1.min.js"></script>
+<script>
+    $('.city').on('change',function () {
+        getList($(this),'xian');
+    });
+    $('.xian').on('change',function () {
+        getList($(this),'town');
+    });
+    $('.town').on('change',function () {
+        getVillage($(this));
+    });
+
+    var areaurl = "{:url('admin/layer/getCounty')}";
+    function getList(e,type) {
+        $('.'+type).html('');
+        var name = '';
+        if(type == 'xian') {
+            name = '所有区县';
+            $('.town').html('');
+            $('.town').append("<option value='0'>所有乡镇</option>");
+            $('.village').html('');
+            $('.village').append("<option value='0'>所有村</option>");
+        } else if(type=='town') {
+            name = '所有乡镇';
+            $('.village').html('');
+            $('.village').append("<option value='0'>所有村</option>");
+        }
+        if(e.val() != 0) {
+            $.ajax({
+                url : areaurl,
+                type : 'post',
+                dataType : 'json',
+                contentType : "application/json; charset=utf-8",
+                data : JSON.stringify({'id':e.val()}),
+            }).done(function(data) {
+                var $item = "<option value='0'>"+name+"</option>";
+                for (let i in data){
+                    $item += "<option  value='"+i+"' '>"+data[i]+"</option>";
+                }
+                $('.'+type).append($item);           
+            });
+        } else {
+            $('.'+type).append("<option value='0'>"+name+"</option>");
+        }
+
+    }
+
+    var villageurl = "{:url('admin/layer/getVillage')}";
+    function getVillage(e){
+        $('.village').html('');
+        if(e.val() != 0) {
+            $.ajax({
+                url : villageurl,
+                type : 'post',
+                dataType : 'json',
+                contentType : "application/json; charset=utf-8",
+                data : JSON.stringify({'id':e.val()}),
+            }).done(function(data) {
+                var $item = "<option value='0'>所有村</option>";
+                for (let i in data){
+                    $item += "<option value='"+i+"' '>"+data[i]+"</option>";
+                }
+                $('.village').empty().append($item);           
+            });
+        } else {
+            $('.village').append("<option value='0'>所有村</option>");
+        }
+    }
+
+    switch({$admin.type}) {
+        case 1:{
+            getList($('.adminCity'),'xian');
+            break;
+        }
+        case 2:{
+            getList($('.adminXian'),'town');
+            break;
+        }
+        case 3:
+        case 6:
+        {
+            getVillage($('.adminTown'));
+            break;
+        }
+        case 4:{
+            break;
+        }
+    }
+    
+    var cityId = $('.cityId').val();
+    var xianId = $('.xianId').val();
+    var townId = $('.townId').val();
+    var villageId = $('.villageId').val();
+
+    if(cityId){
+        $('.city').val(cityId);
+        getList3(cityId,'xian');
+    }
+    if(xianId){
+        getList3(xianId,'town');
+    }
+    if(townId){
+        getVillage3(townId);
+    }
+
+    function getList3(id,type) {
+        var name = '';
+        var selectId = 0;
+        if(type == 'xian') {
+            name = '所有区县';
+            selectId = $('.xianId').val();
+        } else if(type=='town') {
+            name = '所有乡镇';
+            selectId = $('.townId').val();
+        }
+        if(id != 0) {
+            $.ajax({
+                url : areaurl,
+                type : 'post',
+                dataType : 'json',
+                contentType : "application/json; charset=utf-8",
+                data : JSON.stringify({'id':id}),
+            }).done(function(data) {
+                $('.'+type).html('');
+                var $item = "<option value='0'>"+name+"</option>";
+                for (let i in data){
+                    $item += "<option  value='"+i+"'";
+                    if(selectId == i){
+                        $item += " selected ";
+                    }
+                    $item += " '>"+data[i]+"</option>";
+                }
+                $('.'+type).append($item);
+            });
+        } else {
+            $('.'+type).append("<option value='0'>"+name+"</option>");
+        }
+    }
+
+    function getVillage3(id){
+        $('.village').html('');
+        var selectId = '0';
+        selectId = $('.villageId').val();
+        if(id != 0) {
+            $.ajax({
+                url : villageurl,
+                type : 'post',
+                dataType : 'json',
+                contentType : "application/json; charset=utf-8",
+                data : JSON.stringify({'id':id}),
+            }).done(function(data) {
+                var $item = "<option value='0'>所有村</option>";
+                for (let i in data){
+                    $item += "<option value='"+i+"'";
+                    if(selectId == i) {
+                        $item += ' selected';
+                    }
+                    $item += " '>"+data[i]+"</option>";
+                }
+                $('.village').empty().append($item);
+            });
+        } else {
+            $('.village').append("<option value='0'>所有村</option>");
+        }
+    }
+</script>

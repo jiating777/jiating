@@ -1,0 +1,154 @@
+<style>
+    .is-correct, .is-correct:focus {
+        color: #fff;
+        background-color: #3598dc;
+        border-color: #3598dc;
+    }
+    .is-correct:hover {
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #337ab7;
+    }
+    .is-correct:disabled:hover {
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #337ab7;
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN SAMPLE FORM PORTLET-->
+        <div class="portlet light">
+            <div class="portlet-body">
+                <form id="project-form" class="form-horizontal" name="ajaxForm">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        调研标题
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="title" maxlength="80" placeholder="最多输入80字" name="title" value="{$info.title ?: ''}" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        排序
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="number" class="form-control" id="sorting" name="sorting" data-sorting="{$info.sorting ?: ''}" value="{$info.sorting ?: ''}" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        调研类型
+                                    </label>
+                                    <div class="col-md-9">
+                                        <div class="mt-radio-inline">
+                                            <label class="mt-radio mt-radio-outline check-type">
+                                                <input type="radio" class="" name="type" value="1" placeholder="" {if condition="(!isset($info['type'])) OR ($info['type'] == 1)"}checked="checked"{/if}>
+                                                单选
+                                                <span></span>
+                                            </label>
+                                            <label class="mt-radio mt-radio-outline check-type">
+                                                <input type="radio" class="" name="type" value="2" placeholder="" {if condition="(isset($info['type'])) AND ($info['type'] == 2)"}checked="checked"{/if}>
+                                                多选
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        调研选项
+                                        <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <div class="type-select">
+                                            <div class="exam-options">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <input type="text" class="form-control option_NO" name="option_NO1[]" value="A" readonly>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" class="form-control option_value" name="option_value1[]" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="control-label"></label>
+                                                        <input type="text" class="form-control option_NO" name="option_NO1[]" value="B" readonly>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="control-label"></label>
+                                                        <input type="text" class="form-control option_value" name="option_value1[]" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <button type="button" class="btn btn-success addOption-btn" style="margin-top: 10px;">
+                                                <i class="fa fa-plus"></i> 添加选项
+                                            </button>
+                                        </div>
+                                        <div class="type-multiselect">
+                                            <div class="exam-options">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <input type="text" class="form-control option_NO" name="option_NO2[]" value="A" readonly>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" class="form-control option_value" name="option_value2[]" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <label class="control-label"></label>
+                                                        <input type="text" class="form-control option_NO" name="option_NO2[]" value="B" readonly>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label class="control-label"></label>
+                                                        <input type="text" class="form-control option_value" name="option_value2[]" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <button type="button" class="btn btn-success addOption-btn" style="margin-top: 10px;">
+                                                <i class="fa fa-plus"></i> 添加选项
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" class="id" name="id" value="{$info.id ?: ''}">
+                        <input type="hidden" class="options" name="options" value='{$info.option|default=""}'>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- END SAMPLE FORM PORTLET-->
+    </div>
+</div>
+
+<script>
+    var OPTIONS = '{$info.option|default=""}';
+</script>

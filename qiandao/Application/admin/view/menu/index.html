@@ -1,0 +1,82 @@
+{extend name="layout/layout" /}
+
+{block name="pagecss"}
+<style>
+    .row {
+        padding: 0 0 0 50px;
+    }
+    .linkdiv {
+        width: 299px;
+        height: 350px;
+        background-color: #fff;
+        float: left;
+        margin: 0 22px 45px 0;
+        border-radius: 5px !important;
+    }
+    .linkdiv a:hover {
+        text-decoration: none;
+    }
+    .linkdiv img {
+        width: 299px;
+        height: 230px;
+        border: #eee solid 1px;
+        display: inline-block;
+        border-top-left-radius: 5px !important;
+        border-top-right-radius: 5px !important;
+    }
+    .linkdiv .name {
+        font-size: 18px;
+        text-align: center;
+        text-decoration: none;
+        /*line-height: 100px;*/
+        padding-top: 22px;
+    }
+</style>
+{/block}
+
+{block name="content"}
+<div class="row">
+    {volist name="list" id="vo"}
+    <div class="linkdiv">
+        <a href="{:url($vo.url)}">
+            <div class="img-div">
+                <img src="/{$vo.imgPath|default='public/static/pages/image/default.png'}">
+            </div>
+            <div class="title-div">
+                <h3 class="name">{$vo.name}</h3>
+            </div>
+        </a>
+    </div>
+    {/volist}
+</div>
+{/block}
+
+<!--<div class="row">
+    <div class="col-lg-12">
+        <div class="portlet light">
+            <div class="portlet-body">
+                <div class="mt-element-card mt-element-overlay">
+                    <div class="row">
+                    {volist name="list" id="vo"}
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 linkdiv">
+                            <div class="mt-card-item">
+                                <a href="{:url($vo.url)}">
+                                    <div class="mt-card-avatar mt-overlay-1">
+                                        <img src="/{$vo.imgPath|default='public/static/pages/image/default.png'}" style="width: 380px;height: 300px;">
+                                    </div>
+                                    <div class="mt-card-content">
+                                        <h3 class="mt-card-name">{$vo.name}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {/volist}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+{block name="pagescript"}
+{/block}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>跳转提示</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="__STATIC__/admin/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="__STATIC__/admin/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="__STATIC__/admin/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="__STATIC__/admin/css/AdminLTE.min.css">
+</head>
+<body class="hold-transition lockscreen">
+
+<div class="lockscreen-wrapper">
+    <div class="lockscreen-logo">
+        <?php switch ($code) {?>
+            <?php case 1:?>
+                <i class="fa fa-smile-o" style="font-size: 60px;color: #00a65a;"></i>
+                <p class="success"><?php echo(strip_tags($msg));?></p>
+            <?php break;?>
+            <?php case 0:?>
+                <i class="fa fa-frown-o" style="font-size: 60px;color: #d73925;"></i>
+                <p class="error"><?php echo(strip_tags($msg));?></p>
+            <?php break;?>
+        <?php } ?>
+    </div>
+
+    <!--<div class="lockscreen-name"></div>-->
+
+    <div class="lockscreen-item detail">
+
+    </div>
+    <div class="lockscreen-footer text-center">
+        页面自动 <a id="href" href="<?php echo($url);?>">跳转</a> 等待时间： <b id="wait"><?php echo($wait);?></b>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    (function(){
+        var wait = document.getElementById('wait'),
+            href = document.getElementById('href').href;
+        var interval = setInterval(function(){
+            var time = --wait.innerHTML;
+            if(time <= 0) {
+                location.href = href;
+                clearInterval(interval);
+            };
+        }, 1000);
+    })();
+</script>
+</body>
+</html>
