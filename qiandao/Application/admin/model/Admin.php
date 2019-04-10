@@ -24,22 +24,5 @@ class Admin extends Base
         return $this->hasOne('Member', 'id', 'memberId');
     }
 
-    /**
-     * 职务属性
-     * @return \think\model\relation\HasOne
-     */
-    /*public function organizationjob()
-    {
-        return $this->hasOne('Organizationjob', 'id', 'jobId')->field('name');
-    }*/
-    
-    /**
-     * 组织属性
-     * @return \think\model\relation\HasOne
-     */
-    /*public function organization()
-    {
-        return $this->hasOne('Organization', 'id', 'organizationId')->field('name');
-    }*/
 
 }

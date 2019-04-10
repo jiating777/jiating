@@ -18,6 +18,8 @@ Route::rule('role','admin/role/index');  // 角色管理列表
 Route::rule('addrole','admin/role/add');  // 添加角色
 Route::rule('editrole','admin/role/edit');  // 编辑角色
 
+Route::rule('schedule','admin/schedule/index');  // 学校作息时间列表
+
 
 
 
