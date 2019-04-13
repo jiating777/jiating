@@ -20,6 +20,8 @@ Route::rule('editrole','admin/role/edit');  // 编辑角色
 
 Route::rule('schedule','admin/schedule/index');  // 学校作息时间列表
 
+Route::rule('menu','admin/menu/index');  // 后台菜单管理
+
 
 
 

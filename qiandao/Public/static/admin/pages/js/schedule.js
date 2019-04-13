@@ -49,7 +49,7 @@ var Schedule = function() {
                 },
                 "columnDefs": [{
                     "orderable": false,
-                    "targets": [2]
+                    "targets": [2,4]
                 }],
                 "dom": "<'row'<'.col-md-6 col-sm-12'><'col-md-6 col-sm-12'>r>" +
                 "<t>" +

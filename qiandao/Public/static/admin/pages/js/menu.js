@@ -18,10 +18,10 @@ var Operator = function() {
                 },
                 "autoWidth": false,
                 "columns": [
+                    {"data": "id"},
                     {"data": "name"},
-                    {"data": "typeName"},
-                    {"data": "total"},
-                    {"data": "createDate"},
+                    {"data": "url"},
+                    {"data": "sorting"},
                     {
                         "width": "15%",
                         "render": function(data, type, row, meta) {
@@ -125,13 +125,8 @@ var Operator = function() {
             $('#form-submit').on('click', function () {
                 var form = this.form;                //var _formData = $('#ajax-form').serializeObject();
                 if(form.name.value.trim()=='') {
-                    layer.msg('请输入角色名称');
+                    layer.msg('请输入菜单名称');
                     form.name.focus();
-                    return;
-                }
-                if(form.typeName.value.trim()=='') {
-                    layer.msg('请输入英文类型');
-                    form.typeName.focus();
                     return;
                 }
                 if(!form.id.value) {

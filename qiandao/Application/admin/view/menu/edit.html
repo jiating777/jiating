@@ -2,18 +2,19 @@
 
 {block name="content"}
 <div class="row">
-    <div class="col-xs-12">
-        <div class="box box-success">
-            <div class="box-header with-border">
-                <h3 class="box-title">编辑</h3>
-                <div class="box-tools">
-                    <!--<button class="btn bg-navy btn-sm" data-toggle="tooltip" title="" data-original-title="Back" onclick="history.go(-1);">
-                        <i class="fa fa-reply"></i> 返回
-                    </button>-->
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-share font-dark"></i>
+                    <span class="caption-subject font-dark bold uppercase">菜单编辑</span>
+                </div>
+                <div class="actions">
+                    <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title="" title=""> </a>
                 </div>
             </div>
             <div class="box-body">
-                <form action="{:url('admin/'.strtolower($model).'/editpost')}" class="form-horizontal form validation-form" method="post" enctype="multipart/form-data">
+                <form action="{:url('admin/'.strtolower($model).'/editpost')}" id="menuForm" class="form-horizontal" method="post" enctype="multipart/form-data">
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-9">
@@ -51,7 +52,7 @@
                                         图标
                                     </label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" id="icon" name="icon" value="{$info.name}">
+                                        <input type="text" class="form-control" name="imgPath" value="{$info.imgPath}">
                                     </div>
                                 </div>
                             </div>
@@ -65,19 +66,6 @@
                                     </label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" id="url" name="url" value="{$info.url|default='#'}" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3">
-                                        参数
-                                    </label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" id="params" name="params" value="{$info.params}">
-                                        <span class="help-block">例如：id=1</span>
                                     </div>
                                 </div>
                             </div>
@@ -127,22 +115,17 @@
 
                         <input type="hidden" name="id" value="{$info.id}">
 
-                        <hr />
 
-                        <div class="form-actions">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label"></label>
-                                        <div class="col-md-9">
-                                            <button type="submit" class="btn btn-primary">
-                                                保存 <i class="fa fa-floppy-o"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-default" onclick="history.go(-1);">
-                                                返回 <i class="fa fa-mail-forward"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                        <hr />
+                        <div class="row">
+                            <div class="form-actions">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button type="button" id="form-submit" class="btn blue save-btn">
+                                        保存 <i class="fa fa-floppy-o"></i>
+                                    </button>
+                                    <button type="button" class="btn default" onclick="history.go(-1);">
+                                        返回 <i class="fa fa-mail-forward"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -155,5 +138,8 @@
 {/block}
 
 {block name="pagescript"}
-
+<script>
+    var posturl = "{:url('admin/'.strtolower($model).'/editPost')}";
+</script>
+<script src="__STATIC__/admin/pages/js/menu.js" type="text/javascript"></script>
 {/block}
