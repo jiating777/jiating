@@ -123,15 +123,15 @@ var Schedule = function() {
         onEvent : function(){
             $('#form-submit').on('click', function () {
                 var form = this.form;                //var _formData = $('#ajax-form').serializeObject();
-                if(form.name.value.trim()=='') {
+                if(form.schoolId.value.trim()=='') {
                     layer.msg('请选择学校');
-                    form.name.focus();
                     return;
                 }
                 if(!form.id.value) {
                 }
                 
                 var _data = $(form).serializeObject();
+                console.log(_data);
                 
                 $("#form-submit").attr("disabled","disabled");
                 $.ajax({
@@ -266,6 +266,50 @@ $('.add-btn').on('click', function(){    //选择学校
         // $('#schoolAll').DataTable().columns(0).search(title,true,false).draw();//对第二列进行模糊非智能搜索 
     });
 });
+
+$('.create_total').on('click',function() {  //设置作息时间
+    var total = $("#total").val();
+    if (!total) {
+        layer.msg('请输入总节数');
+        return
+    }
+    if(total > 15) {
+        layer.msg('节数超过最大限制');
+        return
+    }
+    var str = "";
+    for (var i = 2; i <= total; i++) {
+        str += '<label class="control-label col-md-3" style="margin-top: 5px"></label>'+
+        '<div class="col-md-2" style="margin-top: 10px">第'+i+'节</div><div class="col-md-3" style="margin-top: 5px">'+
+        '<input type="time" class="form-control" placeholder="开始时间" data-required="1" name="begin" value=""></div><div class="col-md-1">-</div>'+
+        '<div class="col-md-3" style="margin-top: 5px"><input type="time" class="form-control" placeholder="结束时间" data-required="1" name="end" value=""></div>';
+    }
+    $('.schedule .form-group').append(str);
+    $('.schedule').show();
+    $(this).attr("disabled",true);
+});
+
+$('.add_line').on('click',function(){
+    var num = parseInt($("#total").val())+1;
+    $("#total").val(num);
+    $("#total2").val(num);
+    var str = '<div><label class="control-label col-md-3" style="margin-top: 5px"></label>'+
+        '<div class="col-md-1" style="margin-top: 10px">第'+num+'节</div><div class="col-md-3" style="margin-top: 5px">'+
+        '<input type="time" class="form-control" placeholder="开始时间" data-required="1" name="begin" value=""></div><div class="col-md-1">-</div>'+
+        '<div class="col-md-3" style="margin-top: 5px"><input type="time" class="form-control" placeholder="结束时间" data-required="1" name="end" value=""></div>'+
+        '<div class="col-md-1" style="margin-top: 5px"><button class="btn red delete" type="button" onclick="del_line(this)">删除</button></div></div>';
+
+    $('.schedule .form-group').append(str);
+});
+
+function del_line(data) {
+    console.log('delline');
+    $(data).parent().parent().remove();
+    var num = parseInt($("#total").val())-1;
+    $("#total").val(num);
+    $("#total2").val(num);
+}
+
 
 
 

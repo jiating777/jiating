@@ -1,5 +1,6 @@
 {extend name="layout/layout" /}
 
+
 {block name="content"}
 <div class="row">
     <div class="col-md-12">
@@ -37,10 +38,27 @@
                                         总节数
                                     </label>
                                     <div class="col-md-7">
-                                        <input type="number" class="form-control" id="typeName" max="15" placeholder="只能输入数字，最大15" data-required="1" name="typeName" value="">
+                                        <input type="number" class="form-control" id="total" max="15" placeholder="只能输入数字，最大15" data-required="1" name="total" value="">
                                     </div>
                                     <div class="col-md-2">
                                         <button class="btn blue create_total" type="button">确定</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row schedule" style="display: none">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        作息时间
+                                    </label>
+                                    <div class="col-md-2">第1节</div>
+                                    <div class="col-md-3">
+                                        <input type="time" class="form-control" placeholder="开始时间" data-required="1" name="begin" value="">
+                                    </div>
+                                    <div class="col-md-1">-</div>
+                                    <div class="col-md-3">
+                                        <input type="time" class="form-control" placeholder="结束时间" data-required="1" name="end" value="">
                                     </div>
                                 </div>
                             </div>
