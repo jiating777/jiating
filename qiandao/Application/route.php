@@ -21,25 +21,17 @@ Route::rule('editrole','admin/role/edit');  // 编辑角色
 Route::rule('schedule','admin/schedule/index');  // 学校作息时间列表
 
 Route::rule('menu','admin/menu/index');  // 后台菜单管理
+Route::rule('test','admin/common/test');  // 
+
 
 
 
 
 // ++++++++++++++++++++ API 接口 ++++++++++++++++++++ //
-Route::rule('wx/getUserInfo','api/UserInfo/getUserInfo');
-Route::rule('wx/saveUserInfo','api/UserInfo/saveUserInfo');
 
-// ++++++++++++ 首页 Begin ++++++++++++ //
-// 首页数据
-Route::rule('wx/getHomeFrame','api/HomeFrame/getHomeFrame');
 
-// ++++++ 全部村子 ++++++ //
-Route::rule('wx/villages/getVillagesList','api/Villages/getVillagesList');
-// 村子详情
-Route::rule('wx/villages/getVillagesDetail','api/Villages/getVillagesDetail');
-// 村民
-Route::rule('wx/member/getMemberList','api/Member/getMemberList'); // 列表
-Route::rule('wx/member/getMemberDetail','api/Member/getMemberDetail'); // 详情
+
+// ++++++++++++++++++++ API 接口 ++++++++++++++++++++ //
 
 
 // ++++++ 农事服务 ++++++ //
@@ -76,102 +68,8 @@ Route::rule('wx/research/getResearchList','api/Research/getResearchList'); // �
 Route::rule('wx/research/getResearchDetail','api/Research/getResearchDetail'); // 详情
 Route::rule('wx/research/placeResearch','api/Research/placeResearch'); // 提交调研
 // ++++++ 精准扶贫 ++++++ //
-// 精准扶贫首页
-Route::rule('wx/getPoveryHomeFrame','api/PoveryHomeFrame/getPoveryHomeFrame');
-// 扶贫项目
-Route::rule('wx/povertyproject','api/Poverty/povertyproject');  //扶贫项目列表
-Route::rule('wx/povertyprojectType','api/Poverty/povertyprojectType');  //扶贫项目分类列表
-Route::rule('wx/povertyprojectDetail','api/Poverty/povertyprojectDetail');  //扶贫项目详情
-// 扶贫工作
-Route::rule('wx/povertywork','api/Poverty/povertywork');  //帮扶工作列表
-// ++++++ 便民服务 ++++++ //
-Route::rule('wx/getWorkList','api/article/getWorkList');
-// ++++++++++++ 首页 End ++++++++++++ //
 
 
-// ++++++++++++ 一村一品 Begin ++++++++++++ //
-// 首页数据
-Route::rule('wx/getProductHomeFrame','api/ProductHomeFrame/getProductHomeFrame');
-// 搜索
-Route::rule('wx/searchProduct','api/ProductHomeFrame/searchProduct');
-// ++++++ 产地直供 ++++++ //
-Route::rule('wx/product/getTownProducts','api/Product/getTownProducts'); // 镇农产品
-// 产地农产品
-Route::rule('wx/product/getVillageProducts','api/Product/getVillageProducts'); // 村农产品
-// ++++++ 全部分类 ++++++ //
-Route::rule('wx/product/getProductList','api/Product/getProductList'); // 分类产品
-Route::rule('wx/product/getProductType','api/Product/getProductType'); // 产品分类
-Route::rule('wx/product/getProductPlace','api/Product/getProductPlace'); // 产品产地
-Route::rule('wx/product/getVillages','api/Product/getVillages'); // 获取村
-Route::rule('wx/product/getRecommend','api/Product/getRecommend'); // 产品推荐
-Route::rule('wx/product/searchProduct','api/Product/searchProduct'); // 搜索
-// 农产品详情
-Route::rule('wx/product/getProductDetail','api/Product/getProductDetail');
-// ++++++ 预售 ++++++ //
-Route::rule('wx/product/getPresaleProductList','api/Product/getPresaleProductList');
-// 预售详情
-Route::rule('wx/product/getPresaleProductDetail','api/Product/getPresaleProductDetail');
-// ++++++++++++ 一村一品 End ++++++++++++ //
-
-
-// ++++++++++++ 社区 Begin ++++++++++++ //
-// 首页数据
-Route::rule('wx/dynamic/getDynamicList','api/Dynamic/getDynamicList');
-// 发布动态
-Route::rule('wx/dynamic/postDynamic','api/Dynamic/postDynamic');
-// 动态详情
-Route::rule('wx/dynamic/getDynamicDetail','api/Dynamic/getDynamicDetail');
-// 个人动态
-Route::rule('wx/dynamic/getUserDynamics','api/Dynamic/getUserDynamics');
-// ++++++++++++ 社区 End ++++++++++++ //
-
-
-// ++++++++++++ 我的 Begin ++++++++++++ //
-// 我是村民
-// 提交村民审核
-Route::rule('wx/userinfo/USEX','api/User/UserSubmitExamine');
-Route::rule('wx/userinfo/getMyDetails','api/Member/getMyDetails');
-// ++++++ 党员中心 ++++++ //
-// 我的组织
-Route::rule('wx/userinfo/getMyOrganizations','api/UserParty/getMyOrganizations');
-// 学习计划
-Route::rule('wx/userinfo/getMyClassrooms','api/UserParty/getMyClassrooms'); // 列表
-Route::rule('wx/userinfo/getMyClassroomDetail','api/UserParty/getMyClassroomDetail'); // 详情
-Route::rule('wx/userinfo/cancelClassroom','api/UserParty/cancelClassroom'); // 取消学习
-// 我的考试
-Route::rule('wx/userinfo/getMyOnlineexams','api/UserParty/getMyOnlineexams');
-// 我的会议
-Route::rule('wx/userinfo/getMyMeetings','api/UserParty/getMyMeetings'); // 列表
-Route::rule('wx/userinfo/meetingSignIn','api/UserParty/meetingSignIn'); // 扫码签到
-// 参与调研
-Route::rule('wx/userinfo/getMyResearchs','api/UserParty/getMyResearchs');
-// ++++++ 订单 ++++++ //
-Route::rule('wx/..','api/..');
-// 订单详情
-Route::rule('wx/..','api/..');
-// 申领样品
-Route::rule('wx/order/placeSampleOrder','api/SampleOrder/placeSampleOrder');
-// ++++++ 扶贫 ++++++ //
-Route::rule('wx/userinfo/myPoverty','api/User/myPoverty');
-// ++++++ 动态 ++++++ //
-Route::rule('wx/userinfo/myDynamics','api/User/myDynamics'); // 列表
-Route::rule('wx/userinfo/delDynamic','api/User/delDynamic'); // 删除
-// ++++++ 关注 ++++++ //
-Route::rule('wx/userinfo/myAttention','api/User/myAttention');
-// ++++++ 收藏 ++++++ //
-Route::rule('wx/userinfo/myCollect','api/User/myCollect');
-// ++++++ 留言 ++++++ //
-Route::rule('wx/userinfo/postMessage','api/User/postMessage');  //提交留言
-// ++++++++++++ 我的 End ++++++++++++ //
-
-
-// 订单相关
-Route::post('createorder','api/Order/placeOrder');
-Route::group('api/pay',[
-    'pre_order' => ['api/Pay/getPreOrder',['method'=>'post']],
-    'notify' => ['api/Pay/receiveNotify',['method'=>'post']],
-    'offlineWechat' => ['api/Pay/offlineWecharPay',['method'=>'post']]
-]);
 
 
 // ++++++++++++ 通用 ++++++++++++ //

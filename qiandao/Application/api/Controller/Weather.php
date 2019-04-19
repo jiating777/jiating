@@ -15,7 +15,7 @@ class Weather extends BaseController
 {
     public function getWeather()
     {
-        $weather = json_decode(BaseHelper::curlGet("http://www.sojson.com/open/api/weather/json.shtml?city=江陵"));
+        $weather = json_decode(BaseHelper::curlGet("http://t.weather.sojson.com/api/weather/city/101230101"));
         if (empty($weather)) {
             return show(config('status.ERROR_STATUS'), self::NOT_DATA, '未查到当地天气');
         } else {
