@@ -7,7 +7,6 @@ use think\Request;
 use app\common\Common;
 
 use app\admin\model\Menu AS MenuMdl;
-use app\admin\model\Villageimages;
 
 /**
  * Class Menu
