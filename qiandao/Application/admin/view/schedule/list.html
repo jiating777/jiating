@@ -21,7 +21,7 @@
                     {include file="common:search" /}
                     <div class="col-md-2">
                         <div class="pull-right">
-                            <a href="{:url('admin/'.strtolower($model).'/add')}" class="btn blue btn-circle"><i class="fa fa-plus"></i> 添加</a>
+                            <a href="{:url('/addschedule')}" class="btn blue btn-circle"><i class="fa fa-plus"></i> 添加</a>
                         </div>
                     </div>
                 </div>
@@ -45,10 +45,9 @@
     </div>
 </div>
 
-<input type="hidden" class="datalist_url" value="{:url('admin/'.strtolower($model).'/index')}">
-<input type="hidden" class="edit_url" value="{:url('admin/'.strtolower($model).'/edit')}">
+<input type="hidden" class="datalist_url" value="{:url('/schedule')}">
+<input type="hidden" class="edit_url" value="{:url('/editschedule')}">
 <input type="hidden" class="delete_url" value="{:url('admin/'.strtolower($model).'/delete')}">
-<input type="hidden" class="detail_url" value="{:url('admin/'.strtolower($model).'/detail')}">
 {/block}
 
 {block name="pagescript"}

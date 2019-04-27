@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2018/4/19 0019
- * Time: 下午 4:26
- */
+
 namespace app\lib\exception;
 
 use think\Exception;
@@ -22,7 +17,7 @@ class BaseException extends Exception{
     public function __construct($params = []){
         if( !is_array($params)){
             return ;
-//            throw new Exception('参数必须是数组');
+           // throw new Exception('参数必须是数组');
         }
         if(array_key_exists('code',$params)){
             $this->code = $params['code'];

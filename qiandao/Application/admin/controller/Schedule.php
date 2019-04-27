@@ -65,8 +65,11 @@ class Schedule extends Base
     public function addPost(Request $request, $redirect='') {
         $param = $this->request->param();
         $model = model($this->model);
-
-        foreach (array($param['begin']) as $key => $value) {
+        $schedule = [];
+        if(!is_array($param['begin'])) {
+            $param['begin'] = array($param['begin']);
+        }
+        foreach ($param['begin'] as $key => $value) {            
             $tmp = ['start'=>$value,'end'=>$param['end'][$key]];
             $schedule[] = $tmp;
         }

@@ -15,14 +15,4 @@ class Admin extends Base
     protected $pk = 'id';
 
 
-    /**
-     * 成员属性
-     * @return \think\model\relation\HasOne
-     */
-    public function member()
-    {
-        return $this->hasOne('Member', 'id', 'memberId');
-    }
-
-
 }

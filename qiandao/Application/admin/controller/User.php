@@ -32,6 +32,7 @@ class User extends Base
 
 
     public function index(){
+        echo __DIR__;die;
         $request = $this->request;
         if($request->isAjax()){
             $param = $request->param();

@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2018/4/9 0009
- * Time: 下午 5:12
- */
+
 namespace app\common;
 
 use app\admin\model\Area;

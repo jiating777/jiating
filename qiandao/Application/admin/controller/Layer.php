@@ -7,7 +7,6 @@ use think\Controller;
 use app\common\BaseHelper;
 
 use app\admin\model\School;
-use app\admin\model\Area;
 
 class Layer extends Controller
 {   

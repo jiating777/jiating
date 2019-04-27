@@ -36,7 +36,7 @@ class Common extends Controller
         // 下行每站距始发站时间
         $station_2 = [2698, 2549, 2415, 2245, 2104, 1988, 1837, 1701, 1570, 1446, 1283, 1115, 992, 847, 713, 599, 473, 359, 235, 89, 0];
         $arr[][] = [0];
-        for ($i=0; $i < 208; $i++) { 
+        for ($i=0; $i < 208; $i++) {
             for ($j=0; $j < 21; $j++) { 
                 $arr[$i][$j] = 0;
             }
@@ -58,9 +58,18 @@ class Common extends Controller
             
         // }
         // session('number_befroe',$arr);
-        $arr = session('number_befroe');
+        // $arr = session('number_befroe');
         foreach ($up_list as $up) {
             # code...
+        }
+
+        $file = fopen("E:\\lab\\test.csv",'rb');
+        $i = 0;
+        while ($row = fgetcsv($file)) {
+            for ($j=0; $j < 21; $j++) { 
+                $arr[$i][$j] = $row[$j];
+            }
+            $i++;
         }
 
         // 结合列车时刻表再统计
@@ -81,7 +90,8 @@ class Common extends Controller
                 $data[] = $this->getTime($i);
                 for ($j=0; $j < 21; $j++) {
                     // $data[] = $arr[$i][$j];
-                    $data[] = $arr[$i][$j]/(floatval($Ps[$j]));
+                    // $data[] = $arr[$i][$j]/(floatval($Ps[$j]));  // 人数/比重率
+                    $data[] = $arr[$i][$j]*10*0.3 + $Ps[$j]*0.7;
                 }
                 fputcsv($handle, $data);
             }
@@ -118,8 +128,11 @@ class Common extends Controller
         $munite = $num % 12 * 5 + 30;
         $munite = $munite >= 60 ? $munite - 60 : $munite;
         $str = $hour.':'.$munite;
-        return $str;
-         
+        return $str;         
+    }
+
+    public function station_num_per_one_minute($value='') {
+        $
     }
 
 

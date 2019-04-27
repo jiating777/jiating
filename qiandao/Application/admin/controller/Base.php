@@ -12,9 +12,6 @@ use think\Request;
 use think\Controller;
 use think\exception\Handle;
 
-use app\admin\model\Villages;
-use app\admin\model\Area;
-
 class Base extends Controller
 {
 
@@ -157,7 +154,8 @@ class Base extends Controller
                     }else{
                         $icon = $menu['icon'];
                     }
-                    if(('/'.$uri_arr[0] == strtolower($menu['url']))){
+                    if(strstr($uri_arr[0], strtolower(substr($menu['url'], 1)))) {
+                    // if(('/'.$uri_arr[0] == strtolower($menu['url']))){
                         $active = 'active';
                     }else{
                         $active = '';

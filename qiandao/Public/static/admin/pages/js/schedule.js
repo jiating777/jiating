@@ -4,7 +4,6 @@ var Schedule = function() {
     var edit_url = $('.edit_url').val();
     var delete_url = $('.delete_url').val();
     var redirect_url = $('.redirect_url').val();
-    console.log(datalist_url);
 
     var initTable = function() {
         var table = $('#data-table');
@@ -24,7 +23,7 @@ var Schedule = function() {
                     {"data": "createDate"},
                     {
                         "render": function(data, type, row, meta) {
-                            return '<a href="'+edit_url+'?id='+row.id+'" type="button" class="btn btn-success">编辑</a>' +
+                            return '<a href="'+edit_url+'/'+row.id+'" type="button" class="btn btn-success">编辑</a>' +
                                 '<button type="button" class="btn btn-danger delete-btn">删除</button>';
                         }
                     }
