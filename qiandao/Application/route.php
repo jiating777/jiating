@@ -24,6 +24,9 @@ Route::rule('editschedule/:id','admin/schedule/edit');  // 学校作息时间列
 
 Route::rule('menu','admin/menu/index');  // 后台菜单管理
 Route::rule('user','admin/user/index');  // 用户管理
+Route::rule('message','admin/message/index');  // 留言管理
+Route::rule('school','admin/school/index');  // 学校管理
+Route::rule('department','admin/department/index');  // 学校管理
 Route::rule('test','admin/common/test');  //
 
 

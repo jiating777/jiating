@@ -63,7 +63,7 @@ class Common extends Controller
             # code...
         }
 
-        $file = fopen("E:\\lab\\test.csv",'rb');
+        $file = fopen("E:\\lab\\2018-01-11_station_per_5_minute.csv",'rb');
         $i = 0;
         while ($row = fgetcsv($file)) {
             for ($j=0; $j < 21; $j++) { 
@@ -75,7 +75,8 @@ class Common extends Controller
         // 结合列车时刻表再统计
 
 
-        $Ps = ['0.31', '0.18', '0.23', '1.25', '0.26', '0.47', '0.34', '1.01', '0.71', '0.79', '0.68', '0.39', '0.59', '0.43', '0.30', '0.23', '0.20', '0.15', '0.34', '0.05', '1.10'];
+        $Ps = [0.21634062140391255, 0.10529344073647871, 0.14660529344073647, 1.0, 0.16881472957422325, 0.3487917146144994, 0.2385500575373993, 0.7970080552359033, 0.5467203682393555, 0.61795166858458, 0.5217491369390104, 0.27963176064441886, 0.4514384349827388, 0.3173762945914845, 0.20345224395857306, 0.14361334867663983, 0.12186421173762946, 0.07779056386651323, 0.2417721518987342, 0.0, 0.8692750287686997];
+        $a = [1,1,1,0.9,1,0.97,1,0.92,0.94,0.93,0.95,1,0.96,0.98,1,1,1,1,1,1,0.91];
         $station_in_per_day = [2264,1299,1658,9074,1851,3415,2457,7310,5135,5754,4918,2814,4307,3142,2152,1632,1443,
                    1060,2485,384,7938];
 
@@ -84,14 +85,14 @@ class Common extends Controller
         $handle = fopen( $wfile, 'wb');
         if ($handle) {
             $header = ['time', '1', '2', '3', '4', '5', '6','7', '8', '9', '10','11', '12', '13', '14','15', '16', '17', '18','19', '20', '21'];
-            fputcsv($handle, $header);            
+            fputcsv($handle, $header);           
             for ($i=0; $i < 208; $i++) {
                 $data = [];
                 $data[] = $this->getTime($i);
                 for ($j=0; $j < 21; $j++) {
                     // $data[] = $arr[$i][$j];
                     // $data[] = $arr[$i][$j]/(floatval($Ps[$j]));  // 人数/比重率
-                    $data[] = $arr[$i][$j]*10*0.3 + $Ps[$j]*0.7;
+                    $data[] = $arr[$i][$j] == 0 ? 0 : $arr[$i][$j]/100 * $a[$j];
                 }
                 fputcsv($handle, $data);
             }
@@ -100,9 +101,9 @@ class Common extends Controller
         fclose($handle);
 
         for ($i=0; $i < 208; $i++) {
-            for ($j=0; $j < 21; $j++) { 
+            for ($j=0; $j < 21; $j++) {
                 echo $arr[$i][$j];
-                echo "\t"; 
+                echo "\t";
             }
             echo "<br>";
         }
@@ -131,8 +132,8 @@ class Common extends Controller
         return $str;         
     }
 
-    public function station_num_per_one_minute($value='') {
-        $
+    public function station_num_per_one_minute() {
+        $test = 1;
     }
 
 

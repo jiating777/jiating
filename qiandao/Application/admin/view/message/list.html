@@ -30,12 +30,9 @@
                     <div class="">
                         <table id="data-table" class="table table-bordered table-hover dataTable">
                             <thead>
-                                <th>用户名</th>
-                                <th>学号/工号</th>
-                                <th>类型</th>
-                                <th>手机号</th>
-                                <th>学校</th>
-                                <th>学历</th>
+                                <th>留言人</th>
+                                <th>留言内容</th>
+                                <th>留言时间</th>
                                 <th>操作</th>
                             </thead>
                         </table>
@@ -46,7 +43,7 @@
     </div>
 </div>
 
-<input type="hidden" class="datalist_url" value="{:url('/user')}">
+<input type="hidden" class="datalist_url" value="{:url('/message')}">
 <input type="hidden" class="edit_url" value="{:url('admin/'.strtolower($model).'/edit')}">
 <input type="hidden" class="delete_url" value="{:url('admin/'.strtolower($model).'/delete')}">
 <input type="hidden" class="detail_url" value="{:url('admin/'.strtolower($model).'/detail')}">
@@ -54,7 +51,7 @@
 
 {block name="pagescript"}
 <script src="__STATIC__/plugins/datatables/datatables.min.js" type="text/javascript"></script>
-<script src="__STATIC__/admin/pages/js/user.js" type="text/javascript"></script>
+<script src="__STATIC__/admin/pages/js/message.js" type="text/javascript"></script>
 <script type="text/javascript">
     var listurl = "{:url('admin/layer/recordList')}";
     var classlist = "{:url('admin/layer/classList')}";

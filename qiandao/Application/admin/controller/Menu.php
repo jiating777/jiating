@@ -45,36 +45,8 @@ class Menu extends Base
     }
 
     public function addPost(Request $request, $redirect=''){
-        $model = model($this->model);
-
-        //save data
-        if ($request->isPost()) {
-            $data = $request->param();
-            // dump($data);die;
-            // Insert data
-            $data['createDate'] = time();
-            $data['createOper'] = $this->admin->id;
-            $result = $model->save($data);
-
-            if($result !== false) {
-                // Query执行后的操作
-                $model->_after_insert($data);
-
-                // 写入日志
-                $logInfo = $this->admin->name . '添加了一条' . $this->model . '数据。';
-                common::adminLog($request, $logInfo);
-
-                if ($redirect) {
-                    return $this->success('添加成功！', $redirect);
-                } else {
-                    return $this->success('添加成功！', 'admin/' . strtolower($this->model) . '/index');
-                }
-            } else {
-                return $this->error($model->getError());
-            }
-        } else {
-            return $this->error('添加失败！');
-        }
+        $redirect = url($this->redirect);
+        return parent::addPost2($request,$redirect);
     }
 
     public function edit(Request $request) {

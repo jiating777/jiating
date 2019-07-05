@@ -21,18 +21,27 @@ class User extends Base
         $this->redirect = '/user';
         $this->searchFields = [
             'name' => [
-                'label'     => '用户名',
-                'field'     => 'name',
+                'label'     => '学号/工号',
+                'field'     => 'userNum',
                 'type'      => 'text',
                 'disabled'  => false,
                 'condition' => 'like'
             ],
+            'type' => [
+                'label'=>'用户类型',
+                'field'     => 'user.type',
+                'type'      => 'select',
+                'disabled'  => false,
+                'data'=>[
+                    '1'=>'全部',
+                    'student'=>'学生',
+                    'teacher'=>'教师']
+            ]
         ];
     }
 
 
     public function index(){
-        echo __DIR__;die;
         $request = $this->request;
         if($request->isAjax()){
             $param = $request->param();
@@ -47,13 +56,21 @@ class User extends Base
             $order = $param['columns'][$columns]['data'].' '.$param['order'][0]['dir'];
 
             $where = $this->getFilterWhere($request);
+            // dump($where);
             if($this->defaultWhere){
                 //$model = $model->where($this->defaultWhere);
                 $where = array_merge($where, $this->defaultWhere);
             }
-            $list = $model->join('userdetail b','b.userId=user.id')->field('user.*,b.userNum,b.educational')->where($where)->limit($start, $length)->order($order)->select();
-            $count = $model->join('userdetail b','b.userId=user.id')->where($where)->count();
-
+            if(isset($where['userNum']) && $where['user.type'] !='1') {
+                $list = $model->join('userdetail b','b.userId=user.id')->join('school c','b.schoolId = c.id')->field('user.*,b.userNum,b.educational,c.name as schoolName')->where('type','=',$where['user.type'])->where('userNum','like','%'.$where['userNum'].'%')->limit($start, $length)->order($order)->select();
+                $count = $model->join('userdetail b','b.userId=user.id')->where($where)->count();
+            } else if(isset($where['user.type']) && $where['user.type'] =='1'){
+                $list = $model->join('userdetail b','b.userId=user.id')->join('school c','b.schoolId = c.id')->field('user.*,b.userNum,b.educational,c.name as schoolName')->where('userNum','like','%'.$where['userNum'].'%')->limit($start, $length)->order($order)->select();
+                $count = $model->join('userdetail b','b.userId=user.id')->where($where)->count();
+            } else {
+                $list = $model->join('userdetail b','b.userId=user.id')->join('school c','b.schoolId = c.id')->field('user.*,b.userNum,b.educational,c.name as schoolName')->where($where)->limit($start, $length)->order($order)->select();
+                $count = $model->join('userdetail b','b.userId=user.id')->where($where)->count();
+            }
             $result = [
                 'status' => '1',
                 'draw' => $param['draw'],

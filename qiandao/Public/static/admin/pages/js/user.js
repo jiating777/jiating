@@ -18,15 +18,23 @@ var Operator = function() {
                 },
                 "autoWidth": false,
                 "columns": [
-                    {"data": "id"},
                     {"data": "name"},
-                    {"data": "url"},
-                    {"data": "sorting"},
+                    {"data": "userNum"},
+                    {"data": "type"},
+                    {"data": "phone"},
+                    {"data": "schoolName"},
+                    {"data": "educational"},
                     {
                         "width": "15%",
                         "render": function(data, type, row, meta) {
-                            return '<a href="'+edit_url+'?id='+row.id+'" type="button" class="btn btn-success">编辑</a>' +
-                                '<button type="button" class="btn btn-danger delete-btn">删除</button>';
+                            var str = '';
+                            if(row.type == 'student') {
+                                str += '<button  type="button" class="btn btn-success record-btn">签到记录</button>';
+                            } else {
+                                str += '<button  type="button" class="btn btn-success class-btn">班课</button>';
+                            }
+                            str+='<button type="button" class="btn btn-danger delete-btn">重置密码</button>';
+                            return str;
                         }
                     }
                 ],
@@ -48,6 +56,9 @@ var Operator = function() {
                         }
                     }
                 },
+                "order": [
+                    [1, "asc"]
+                ],
                 "columnDefs": [{
                     "orderable": false,
                     "targets": [0, 2,4]
@@ -68,14 +79,14 @@ var Operator = function() {
             tableSearch(table, param);
         });
 
-        // 删除
+        // 重置密码
         table.on('click', '.delete-btn', function(event) {
             // 操作行对象
             var dataArr = table.DataTable().rows($(this).parents("tr")).data();
             var id = dataArr[0].id;
             var _this = $(this);
 
-            var text = '是否要删除这条数据？';
+            var text = '是否要重置密码吗？';
             var title = '请确认';
             var confirmBtn = '确定';
             var cancelBtn = '取消';
@@ -91,21 +102,147 @@ var Operator = function() {
                     layer.close(index);
                     var url = delete_url;
                     var data = {'id':id};
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        data: data,
-                        dataType : 'json',
-                        success: function (data) {
-                            layer.msg(data.msg);
-                            if(data.code == 1){
-                                _this.parents('tr').remove();
-                            }
-                        }
-                    });
+                    layer.msg('重置成功');
                 }
             );
         });
+
+        table.on('click', '.record-btn', function(event) {
+            // 操作行对象
+            var dataArr = table.DataTable().rows($(this).parents("tr")).data();
+            var id = dataArr[0].id;
+            var _this = $(this);
+
+            var param = {'studentId':id};
+            var title = '签到记录';
+            var content = '<div class="col-md-9"><div class="form-inline"></div></div>'+
+            '<table class="table" id="record"><thead><tr><th> 姓名 </th><th> 签到课程 </th><th> 签到时间 </th></tr></thead></table>';
+            var options = {
+                'width' : '1000px',
+            };
+            open_modal(title, content, options);
+            var etable = $('#record');
+    
+
+            etable.dataTable({
+                "processing": true, // 开启服务器模式
+                "ordering": false, // 禁止排序
+                serverSide: true,
+                destroy:false,
+                "ajax": {
+                    url:listurl,
+                    data:param
+                },
+                "autoWidth": false,
+                "columns": [
+                    {"width": "20%","data": "name"},
+                    {"width": "20%","data": "classname"},
+                    {
+                        "width": "30%",
+                        "data": "null",
+                        "render": function(data, type, row, meta){
+                            var date = new Date(row.qiandaotime*1000);
+                            return date.getFullYear() + '-' + (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-' +date.getDate() + ' '
+                            +date.getHours() + ':'+date.getMinutes() + ':'+date.getSeconds();
+                        }
+                        // "defaultContent": 
+                    }
+                ],
+                "language":{    
+                    "lengthMenu": "每页显示 _MENU_ 条记录",
+                    "emptyTable": "暂无数据记录",
+                    "info": "显示 _START_ 至 _END_ 条数据，共 _TOTAL_ 条记录！",
+                    "zeroRecords": "没有搜索到匹配记录",
+                    "infoEmpty": "",
+                    "infoFiltered": "",
+                    "processing": "数据加载中,请稍后...",
+                    "paginate": {
+                        "first": "首页",
+                        "previous": "",
+                        "next": "",
+                        "last": "末页"
+                    }
+                },
+                "pageLength": 7,
+                "columnDefs": [{
+                    "orderable": false,
+                }],
+                "dom": "<'row'<'.col-md-6 col-sm-12'><'col-md-6 col-sm-12'>r>" +
+                    "<t>" +
+                    "<'table_b relative'<'col-md-5'i><'col-md-7'>p>",
+                "fnInitComplete": function() {}
+            });
+            //确定
+            $('.modal-footer .btn-success').click(function(event){
+                $(this).parents(".modal").modal('hide');
+            });
+
+
+        });
+
+
+        table.on('click', '.class-btn', function(event) {
+            var dataArr = table.DataTable().rows($(this).parents("tr")).data();
+            var id = dataArr[0].id;
+            var _this = $(this);
+
+            var param = {'createId':id};
+            var title = '班课记录';
+            var content = '<div class="col-md-9"><div class="form-inline"></div></div>'+
+            '<table class="table" id="class"><thead><tr><th> 名称 </th><th> 上课地点 </th><th> 上课时间 </th></tr></thead></table>';
+            var options = {
+                'width' : '1000px',
+            };
+            open_modal(title, content, options);
+            var ctable = $('#class');
+    
+
+            ctable.dataTable({
+                "processing": true, // 开启服务器模式
+                "ordering": false, // 禁止排序
+                serverSide: true,
+                destroy:false,
+                "ajax": {
+                    url:classlist,
+                    data:param
+                },
+                "autoWidth": false,
+                "columns": [
+                    {"width": "20%","data": "classname"},
+                    {"width": "20%","data": "location"},
+                    {"width": "20%","data": "taketime"}
+                ],
+                "language":{    
+                    "lengthMenu": "每页显示 _MENU_ 条记录",
+                    "emptyTable": "暂无数据记录",
+                    "info": "显示 _START_ 至 _END_ 条数据，共 _TOTAL_ 条记录！",
+                    "zeroRecords": "没有搜索到匹配记录",
+                    "infoEmpty": "",
+                    "infoFiltered": "",
+                    "processing": "数据加载中,请稍后...",
+                    "paginate": {
+                        "first": "首页",
+                        "previous": "",
+                        "next": "",
+                        "last": "末页"
+                    }
+                },
+                "pageLength": 7,
+                "columnDefs": [{
+                    "orderable": false,
+                }],
+                "dom": "<'row'<'.col-md-6 col-sm-12'><'col-md-6 col-sm-12'>r>" +
+                    "<t>" +
+                    "<'table_b relative'<'col-md-5'i><'col-md-7'>p>",
+                "fnInitComplete": function() {}
+            });
+            //确定
+            $('.modal-footer .btn-success').click(function(event){
+                $(this).parents(".modal").modal('hide');
+            });
+        });
+
+
     };
 
     var tableSearch = function(table, params) {

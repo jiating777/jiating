@@ -25,10 +25,10 @@ class Dashboard extends Base
             'totalUsersubmitexamine' => 33,
             'todayReceiveorder' => 44,
             'totalReceiveorder' => 55,
-            'todayDynamics' => 66,
-            'totalDynamics' => 77,
-            'todayMessages' => 88,
-            'totalMessages' => 99,
+            'todayDynamics' => 36,
+            'totalDynamics' => 108,
+            'todayMessages' => 28,
+            'totalMessages' => 59,
         ];;
 
         return $countData;

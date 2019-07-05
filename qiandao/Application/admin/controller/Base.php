@@ -376,13 +376,38 @@ class Base extends Controller
         //save data
         if ($request->isPost()) {
             $data = $request->param();
-            // return $data;
-            // dump($data);die;
-            // Insert data
             $data['id'] = Helper::getUUID();
             $data['createDate'] = time();
             $data['createOper'] = $this->admin->id;
-            // $data['villageId'] = $this->admin->villageId;
+            $result = $model->save($data);
+
+            if($result !== false) {
+                // Query执行后的操作
+                $model->_after_insert($data);
+
+                // 写入日志
+                $logInfo = $this->admin->name . '添加了一条' . $this->model . '数据。';
+                common::adminLog($request, $logInfo);
+
+                if ($redirect) {
+                    return $this->success('添加成功！', $redirect);
+                } else {
+                    return $this->success('添加成功！', 'admin/' . strtolower($this->model) . '/index');
+                }
+            } else {
+                return $this->error($model->getError());
+            }
+        } else {
+            return $this->error('添加失败！');
+        }
+    }
+
+    public function addPost2(Request $request, $redirect){
+        $model = model($this->model);
+
+        //save data
+        if ($request->isPost()) {
+            $data = $request->param();
             $result = $model->save($data);
 
             if($result !== false) {
@@ -583,8 +608,8 @@ class Base extends Controller
         $where = [];
         if($param['search']['value']) {
             $filter = json_decode($param['search']['value'],true);
+            $where = $filter;
         }
-
         return $where;
     }
 
