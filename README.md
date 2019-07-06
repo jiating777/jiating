@@ -2,9 +2,7 @@
 ===============
 
 ## 项目介绍
-基于Vue + Thinkphp的前后端分离设计。
-脚手架构建也可以通过vue官方的vue-cli脚手架工具构建
-实现了一般后台所需要的功能模块
+基于Vue + Thinkphp的前后端分离设计.
 
 演示地址：http://qiandao2019.gz01.bdysite.com/
 用户名: admin
