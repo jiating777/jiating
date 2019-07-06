@@ -33,8 +33,26 @@ Route::rule('test','admin/common/test');  //
 
 
 
-// ++++++++++++++++++++ API 接口 ++++++++++++++++++++ //
-Route::rule('api/getuser','api/user/get');  //
+// ++++++++++++++++++++ API 接口 ++++++++++++++++++++ // 
+Route::get('userlist', 'api/user/index');   //get
+Route::put('user/:id', 'api/user/update');   //修改
+Route::post('user/:id', 'api/user/save');   //post
+Route::resource('user', 'api/user');
+
+Route::get('courselist', 'api/course/index');   //get 
+Route::put('course/:id', 'api/course/update');   //修改
+Route::post('course/:id', 'api/course/save');   //post
+Route::resource('course', 'api/course');
+
+Route::get('messagelist', 'api/message/index');   //get
+Route::post('message/:id', 'api/message/save');   //post
+Route::resource('message', 'api/message');
+
+Route::get('recordlist', 'api/record/index');   //get
+Route::post('record/:id', 'api/record/save');   //post
+Route::resource('record', 'api/record');
+
+
 
 
 
