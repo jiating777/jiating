@@ -4,9 +4,9 @@
 ## 项目介绍
 基于Vue + Thinkphp的前后端分离设计.
 
-演示地址：http://qiandao2019.gz01.bdysite.com/
-用户名: admin
-密码：123456
+*演示地址：http://qiandao2019.gz01.bdysite.com/
+*用户名: admin
+*密码：123456
 
 
 ## 主要使用技术
@@ -14,9 +14,7 @@
 * 前端MVVM框架：Vue.JS 2.x
 * 开发工作流：Webpack 1.x
 * 路由：Vue-Router 2.x
-* JS函数库：Lodash
 
-> VueThink的运行环境要求PHP5.6以上。
 
 详细开发文档参考 [ThinkPHP5完全开发手册](http://www.kancloud.cn/manual/thinkphp5)
 
