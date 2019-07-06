@@ -4,9 +4,9 @@
 ## 项目介绍
 基于Vue + Thinkphp的前后端分离设计.
 
-*演示地址：http://qiandao2019.gz01.bdysite.com/
-*用户名: admin
-*密码：123456
+* 演示地址：http://qiandao2019.gz01.bdysite.com/
+* 用户名: admin
+* 密码：123456
 
 
 ## 主要使用技术
