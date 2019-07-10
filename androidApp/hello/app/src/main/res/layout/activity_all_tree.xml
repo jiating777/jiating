@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_all_tree"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.ihiilaptop.hello.AllTreeActivity">
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/horizontalScrollView">
+
+        <RelativeLayout android:layout_height="120dp"
+            android:layout_width="610dp">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/tree1"
+                android:id="@+id/imageView14"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/tree2"
+                android:id="@+id/imageView15"
+                android:layout_alignBottom="@+id/imageView14"
+                android:layout_alignEnd="@+id/button5"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/button4" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/tree3"
+                android:id="@+id/imageView16"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/imageView15" />
+
+            <Button
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button6"
+                android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
+                android:textSize="24sp"
+                android:textColor="@color/actionColor"
+                android:layout_alignEnd="@+id/imageView16"
+                android:layout_toEndOf="@+id/imageView15"
+                android:layout_below="@+id/imageView15" />
+
+            <Button
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button5"
+                android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
+                android:textSize="24sp"
+                android:textAlignment="center"
+                android:textColor="@color/actionColor"
+                android:layout_alignParentBottom="true"
+                android:layout_toEndOf="@+id/button4"
+                android:layout_below="@+id/imageView15" />
+
+            <Button
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button4"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textColor="@color/actionColor"
+                android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
+                android:layout_alignBaseline="@+id/button6"
+                android:layout_alignBottom="@+id/button6"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button7"
+                android:textSize="24sp"
+                android:textColor="@color/actionColor"
+                android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
+                android:layout_toEndOf="@+id/imageView16"
+                android:layout_alignTop="@+id/button6"
+                android:layout_alignParentBottom="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/tree4"
+                android:id="@+id/imageView17"
+                android:layout_above="@+id/button7"
+                android:layout_alignEnd="@+id/button7"
+                android:layout_toEndOf="@+id/imageView16" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/tree5"
+                android:id="@+id/imageView18"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="341dp"
+                android:layout_alignEnd="@+id/button8" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/tree6"
+                android:id="@+id/imageView19"
+                android:layout_alignTop="@+id/imageView17"
+                android:layout_above="@+id/button8"
+                android:layout_alignEnd="@+id/button9" />
+
+            <Button
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button10"
+                android:layout_toEndOf="@+id/button9"
+                android:textSize="24sp"
+                android:textAlignment="center"
+                android:textColor="@color/actionColor"
+                android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
+                android:layout_below="@+id/imageView16" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/tree7"
+                android:id="@+id/imageView20"
+                android:layout_alignParentTop="true"
+                android:layout_alignEnd="@+id/button10"
+                android:layout_toEndOf="@+id/button9" />
+
+            <Button
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button8"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textColor="@color/actionColor"
+                android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
+                android:layout_alignParentBottom="true"
+                android:layout_toEndOf="@+id/button7"
+                android:layout_below="@+id/imageView17" />
+
+            <Button
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button9"
+                android:textSize="24sp"
+                android:textAlignment="center"
+                android:textColor="@color/actionColor"
+                android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
+                android:layout_alignParentBottom="true"
+                android:layout_toEndOf="@+id/imageView18" />
+
+        </RelativeLayout>
+
+    </HorizontalScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/horizontalScrollView">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/linnn">
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

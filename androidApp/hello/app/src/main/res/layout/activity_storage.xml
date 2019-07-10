@@ -1,0 +1,822 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_storage"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.ihiilaptop.hello.StorageActivity"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.09"
+        android:scrollbars="none">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1180dp">
+
+        <TextView
+            android:text="可以砍掉自己的任意1棵树"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView13"
+            android:layout_alignBaseline="@+id/duihuan1"
+            android:layout_alignBottom="@+id/duihuan1"
+            android:layout_alignStart="@+id/textView12"
+            android:textColor="@android:color/background_dark" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/cutmytree"
+            android:id="@+id/imageView2"
+            android:layout_marginStart="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/textView15"
+            android:background="@android:color/darker_gray"
+            android:layout_height="4dp"
+            android:layout_below="@+id/duihuan1"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/farmer"
+            android:id="@+id/imageView"
+            android:layout_below="@+id/textView15"
+            android:layout_alignStart="@+id/duihuan1" />
+
+        <Button
+            android:text="兑换"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/duihuan1"
+            android:background="@android:color/holo_green_light"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            android:layout_below="@+id/imageView2"
+            android:layout_alignStart="@+id/imageView2" />
+
+        <Button
+            android:text="雇佣"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hirefarmer"
+            android:layout_below="@+id/imageView"
+            android:layout_alignStart="@+id/imageView"
+            android:background="@android:color/holo_green_light"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
+
+        <TextView
+            android:text="库存 1 把"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
+            android:id="@+id/smallcount"
+            android:textColor="@android:color/holo_green_light"
+            android:textSize="18sp"
+            android:background="@drawable/bmob_update_button_cancel_bg_tap"
+            android:layout_above="@+id/textView11"
+            android:layout_alignEnd="@+id/textView11" />
+
+        <TextView
+            android:text="收割机老农"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView14"
+            android:textSize="18sp"
+            android:textColor="@android:color/background_dark"
+            android:layout_below="@+id/textView15"
+            android:layout_toEndOf="@+id/duihuan1"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:text="老农可以一键收割所有成熟的树噢~"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView16"
+            android:textSize="12sp"
+            android:layout_below="@+id/farmercount"
+            android:layout_alignStart="@+id/textView17" />
+
+        <TextView
+            android:text="50棵银杏树"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView17"
+            android:layout_above="@+id/hirefarmer"
+            android:layout_toEndOf="@+id/hirefarmer"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:text="50棵香樟树"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView12"
+            android:textColor="@android:color/background_dark"
+            android:fontFamily="serif"
+            android:layout_above="@+id/duihuan1"
+            android:layout_toEndOf="@+id/duihuan1" />
+
+        <TextView
+            android:text="瞬间收割自己的树"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/hirefarmer"
+            android:layout_toEndOf="@+id/hirefarmer"
+            android:layout_marginBottom="13dp"
+            android:id="@+id/textView18"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/hirefarmer"
+            android:layout_alignParentStart="true"
+            android:id="@+id/textView19"
+            android:textSize="14sp"
+            android:layout_height="4dp"
+            android:background="@android:color/darker_gray"
+            android:layout_alignParentEnd="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/cutothers"
+            android:id="@+id/imageView3"
+            android:layout_below="@+id/textView19"
+            android:layout_alignStart="@+id/hirefarmer" />
+
+        <Button
+            android:text="盗取"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView3"
+            android:layout_alignEnd="@+id/hirefarmer"
+            android:id="@+id/daoqubig"
+            android:textSize="18sp"
+            android:background="@android:color/holo_green_light"
+            android:textColor="@android:color/background_light" />
+
+        <TextView
+            android:text="在这个荒蛮世界，垃圾站总是有很多废弃斧子"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView11"
+            android:textSize="12sp"
+            android:layout_above="@+id/textView12"
+            android:layout_toEndOf="@+id/imageView2" />
+
+        <TextView
+            android:text="老旧小斧头"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView5"
+            android:textColor="@android:color/background_dark"
+            android:textSize="18sp"
+            android:layout_above="@+id/textView11"
+            android:layout_alignStart="@+id/textView12" />
+
+        <TextView
+            android:text="野性短柄斧"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:id="@+id/textView20"
+            android:layout_below="@+id/textView19"
+            android:layout_toEndOf="@+id/hirefarmer"
+            android:textColor="@android:color/background_dark"
+            android:textSize="18sp" />
+
+        <TextView
+            android:text="从疯狂的食人族那里投来的可怕利器"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView20"
+            android:layout_alignStart="@+id/textView20"
+            android:id="@+id/textView22"
+            android:textSize="12sp" />
+
+        <TextView
+            android:text="100棵香樟树"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView22"
+            android:layout_toEndOf="@+id/daoqubig"
+            android:id="@+id/textView23"
+            android:textSize="14sp"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:text="能砍掉别人的任意1棵普通的树"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/daoqubig"
+            android:layout_toEndOf="@+id/daoqubig"
+            android:layout_marginBottom="13dp"
+            android:id="@+id/textView24"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:layout_below="@+id/daoqubig"
+            android:layout_alignParentStart="true"
+            android:id="@+id/textView25"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/darker_gray" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/protect"
+            android:layout_below="@+id/textView25"
+            android:layout_alignStart="@+id/daoqubig"
+            android:id="@+id/imageView4" />
+
+        <Button
+            android:text="召唤"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView4"
+            android:layout_alignEnd="@+id/daoqubig"
+            android:id="@+id/zhoahuan"
+            android:textColor="@android:color/background_light"
+            android:background="@android:color/holo_green_light"
+            android:textSize="18sp" />
+
+        <TextView
+            android:text="树精灵守护"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:id="@+id/textView26"
+            android:textSize="18sp"
+            android:layout_below="@+id/textView25"
+            android:layout_toEndOf="@+id/daoqubig"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:text="库存 0 次"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView26"
+            android:layout_alignStart="@+id/bigcount"
+            android:id="@+id/jinglingcount"
+            android:textSize="18sp"
+            android:background="@drawable/bmob_update_button_cancel_bg_tap"
+            android:textColor="@android:color/holo_green_light" />
+
+        <TextView
+            android:text="只有心地纯洁的人才能召唤出树精灵"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView26"
+            android:layout_alignStart="@+id/textView26"
+            android:id="@+id/textView28"
+            android:textSize="12sp" />
+
+        <TextView
+            android:text="100棵银杏树"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView28"
+            android:layout_toEndOf="@+id/zhoahuan"
+            android:id="@+id/textView29"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:text="保护自己的树不受到任何的伤害"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/zhoahuan"
+            android:layout_toEndOf="@+id/zhoahuan"
+            android:layout_marginTop="13dp"
+            android:id="@+id/textView30"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:layout_below="@+id/zhoahuan"
+            android:layout_alignParentStart="true"
+            android:id="@+id/textView31"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:text="库存 15 棵"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tree1count"
+            android:textSize="18sp"
+            android:layout_alignBottom="@+id/textView33"
+            android:layout_alignEnd="@+id/jinglingcount"
+            android:background="@drawable/bmob_update_button_cancel_bg_tap"
+            android:textColor="@android:color/holo_green_light" />
+
+        <TextView
+            android:text="普通但又非常使用的树种，绿化的得力助手"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView35"
+            android:textSize="12sp"
+            android:layout_below="@+id/textView33"
+            android:layout_toEndOf="@+id/imageView5" />
+
+        <TextView
+            android:text="1级获得           5点经验"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView35"
+            android:layout_toEndOf="@+id/zhoahuan"
+            android:id="@+id/textView36"
+            android:textSize="14sp"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:text="香樟树"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView33"
+            android:textSize="18sp"
+            android:textColor="@android:color/background_dark"
+            android:layout_alignTop="@+id/imageView5"
+            android:layout_alignStart="@+id/textView36" />
+
+        <TextView
+            android:text="3小时结果1次，每次1棵"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView5"
+            android:layout_alignStart="@+id/textView36"
+            android:id="@+id/textView37"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:layout_below="@+id/imageView5"
+            android:layout_alignParentStart="true"
+            android:id="@+id/textView38"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/darker_gray" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/tree1"
+            android:id="@+id/imageView5"
+            android:layout_marginTop="18dp"
+            android:layout_below="@+id/textView31"
+            android:layout_alignStart="@+id/zhoahuan" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/tree2"
+            android:id="@+id/imageView6"
+            android:layout_below="@+id/textView38"
+            android:layout_alignStart="@+id/imageView5"
+            android:layout_marginTop="18dp"
+            android:layout_toStartOf="@+id/textView37" />
+
+        <TextView
+            android:text="银杏树"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView6"
+            android:layout_toEndOf="@+id/imageView6"
+            android:id="@+id/textView39"
+            android:textSize="18sp"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:text="库存 5 棵"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView39"
+            android:id="@+id/tree2count"
+            android:textSize="18sp"
+            android:background="@drawable/bmob_update_button_cancel_bg_tap"
+            android:textColor="@android:color/holo_green_light"
+            android:layout_alignEnd="@+id/tree1count"
+            android:layout_alignStart="@+id/tree1count" />
+
+        <TextView
+            android:text="一种古老的树种，据说有树精灵的保护"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView41"
+            android:textSize="12sp"
+            android:layout_below="@+id/textView39"
+            android:layout_toEndOf="@+id/imageView6" />
+
+        <TextView
+            android:text="1级获得           20点经验"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView41"
+            android:layout_toEndOf="@+id/imageView6"
+            android:id="@+id/textView42"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:text="6小时结果1次，每次1棵"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView42"
+            android:layout_toEndOf="@+id/imageView6"
+            android:id="@+id/textView43"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:layout_below="@+id/textView43"
+            android:layout_alignParentStart="true"
+            android:id="@+id/textView44"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/darker_gray" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/tree3"
+            android:id="@+id/imageView7"
+            android:layout_below="@+id/textView44"
+            android:layout_alignEnd="@+id/imageView5"
+            android:layout_marginTop="19dp" />
+
+        <TextView
+            android:text="红枫树"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView7"
+            android:layout_alignStart="@+id/textView43"
+            android:id="@+id/textView45"
+            android:textSize="18sp"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:text="库存 0 棵"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView45"
+            android:id="@+id/tree3count"
+            android:layout_alignEnd="@+id/tree2count"
+            android:background="@drawable/bmob_update_button_cancel_bg_tap"
+            android:textSize="18sp"
+            android:layout_toEndOf="@+id/textView36"
+            android:textColor="@android:color/holo_green_light"
+            android:layout_alignStart="@+id/tree2count" />
+
+        <TextView
+            android:text="初出茅庐的开垦者驾驭不了这种树"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView47"
+            android:textSize="12sp"
+            android:layout_below="@+id/textView45"
+            android:layout_alignEnd="@+id/textView24" />
+
+        <TextView
+            android:text="10级获得           45点经验"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView48"
+            android:textColor="@android:color/background_dark"
+            android:layout_below="@+id/textView47"
+            android:layout_alignStart="@+id/textView45" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:layout_below="@+id/imageView7"
+            android:layout_alignParentStart="true"
+            android:id="@+id/textView50"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/darker_gray" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/tree4"
+            android:id="@+id/imageView8"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/textView50"
+            android:layout_alignStart="@+id/imageView6"
+            android:layout_alignEnd="@+id/imageView7" />
+
+        <TextView
+            android:text="樱花树"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView8"
+            android:layout_alignStart="@+id/textView49"
+            android:id="@+id/textView51"
+            android:textSize="18sp"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:text="库存 0 棵"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView51"
+            android:layout_alignStart="@+id/tree2count"
+            android:id="@+id/tree4count"
+            android:textSize="18sp"
+            android:background="@drawable/bmob_update_button_cancel_bg_tap"
+            android:textColor="@android:color/holo_green_light"
+            android:layout_alignEnd="@+id/tree3count" />
+
+        <TextView
+            android:text="东瀛人最爱的树种，据说某棵下面埋着宝藏"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView51"
+            android:layout_alignStart="@+id/textView51"
+            android:id="@+id/textView53"
+            android:textSize="12sp" />
+
+        <TextView
+            android:text="20级获得           80点经验"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView53"
+            android:layout_alignStart="@+id/textView53"
+            android:id="@+id/textView54"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView54"
+            android:layout_alignStart="@+id/textView54"
+            android:id="@+id/textView55"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:text="24小时结果1次，每次2棵"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView8"
+            android:layout_alignStart="@+id/textView54"
+            android:id="@+id/textView56"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:layout_below="@+id/imageView8"
+            android:layout_alignParentStart="true"
+            android:id="@+id/textView57"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/darker_gray" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/tree5"
+            android:id="@+id/imageView9"
+            android:layout_below="@+id/textView57"
+            android:layout_alignEnd="@+id/imageView8"
+            android:layout_marginTop="20dp"
+            android:layout_alignStart="@+id/imageView7" />
+
+        <TextView
+            android:text="蓝杉树"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView9"
+            android:layout_toEndOf="@+id/textView55"
+            android:id="@+id/textView58"
+            android:textSize="18sp"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:text="库存 0 棵"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView58"
+            android:layout_alignStart="@+id/tree4count"
+            android:id="@+id/tree5count"
+            android:textSize="18sp"
+            android:textColor="@android:color/holo_green_light"
+            android:background="@drawable/bmob_update_button_cancel_bg_tap"
+            android:layout_alignEnd="@+id/tree3count" />
+
+        <TextView
+            android:text="这种奇特颜色的树种，开垦者们敬而远之"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView58"
+            android:layout_toEndOf="@+id/textView55"
+            android:id="@+id/textView60"
+            android:textSize="12sp" />
+
+        <TextView
+            android:text="3天结果1次，每次3棵"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView9"
+            android:layout_alignStart="@+id/textView61"
+            android:id="@+id/textView62"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:text="30级获得           125点经验"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView61"
+            android:textSize="14sp"
+            android:textColor="@android:color/background_dark"
+            android:layout_below="@+id/textView60"
+            android:layout_alignEnd="@+id/textView13" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:layout_below="@+id/imageView9"
+            android:layout_alignParentStart="true"
+            android:id="@+id/textView63"
+            android:background="@android:color/darker_gray"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:text="12小时结果1次，每次2棵"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView49"
+            android:textColor="@android:color/background_dark"
+            android:layout_above="@+id/textView50"
+            android:layout_alignStart="@+id/textView61" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/tree6"
+            android:id="@+id/imageView10"
+            android:layout_below="@+id/textView63"
+            android:layout_alignStart="@+id/imageView9"
+            android:layout_marginTop="18dp" />
+
+        <TextView
+            android:text="蓝楹树"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView10"
+            android:layout_toEndOf="@+id/textView55"
+            android:id="@+id/textView64"
+            android:textSize="18sp"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:text="40级获得           180点经验"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView66"
+            android:layout_toEndOf="@+id/textView55"
+            android:id="@+id/textView67"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:text="7天结果1次，每次3棵"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView67"
+            android:layout_toEndOf="@+id/textView55"
+            android:id="@+id/textView68"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:layout_below="@+id/imageView10"
+            android:layout_alignParentStart="true"
+            android:id="@+id/textView69"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/darker_gray" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/tree7"
+            android:id="@+id/imageView11"
+            android:layout_alignTop="@+id/textView74"
+            android:layout_alignStart="@+id/imageView10"
+            android:layout_alignEnd="@+id/imageView9" />
+
+        <TextView
+            android:text="圣诞树"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:id="@+id/textView74"
+            android:textSize="18sp"
+            android:textColor="@android:color/background_dark"
+            android:layout_below="@+id/textView69"
+            android:layout_toEndOf="@+id/textView55" />
+
+        <TextView
+            android:text="库存 0 棵"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView74"
+            android:layout_alignStart="@+id/tree6count"
+            android:id="@+id/tree7count"
+            android:textSize="18sp"
+            android:textColor="@android:color/holo_green_light"
+            android:background="@drawable/bmob_update_button_cancel_bg_tap"
+            android:layout_alignEnd="@+id/tree6count" />
+
+        <TextView
+            android:text="库存 0 棵"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tree6count"
+            android:textColor="@android:color/holo_green_light"
+            android:textSize="18sp"
+            android:background="@drawable/bmob_update_button_cancel_bg_tap"
+            android:layout_above="@+id/textView66"
+            android:layout_alignEnd="@+id/tree5count"
+            android:layout_alignStart="@+id/tree3count" />
+
+        <TextView
+            android:text="圣灵降临之树，赐予所有开垦者福音"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView74"
+            android:layout_alignStart="@+id/textView74"
+            android:id="@+id/textView76"
+            android:textSize="12sp" />
+
+        <TextView
+            android:text="50级获得           245点经验"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView76"
+            android:layout_toEndOf="@+id/textView55"
+            android:id="@+id/textView77"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:text="15天结果1次，每次3棵"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView11"
+            android:layout_toEndOf="@+id/textView55"
+            android:id="@+id/textView78"
+            android:textColor="@android:color/background_dark" />
+
+        <TextView
+            android:text="来自世界的另一头，见过这种树的人非常少"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView66"
+            android:textSize="12sp"
+            android:layout_below="@+id/textView64"
+            android:layout_toEndOf="@+id/textView55" />
+
+        <TextView
+            android:text="库存 0 人"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/farmercount"
+            android:textSize="18sp"
+            android:textColor="@android:color/holo_green_light"
+            android:background="@drawable/bmob_update_button_cancel_bg_tap"
+            android:layout_alignBaseline="@+id/textView14"
+            android:layout_alignBottom="@+id/textView14"
+            android:layout_toEndOf="@+id/textView62" />
+
+        <TextView
+            android:text="库存 0 把"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bigcount"
+            android:background="@drawable/bmob_update_button_cancel_bg_tap"
+            android:textSize="18sp"
+            android:textColor="@android:color/holo_green_light"
+            android:layout_above="@+id/textView22"
+            android:layout_alignStart="@+id/farmercount" />
+
+
+    </RelativeLayout>
+
+    </ScrollView>
+
+</LinearLayout>
